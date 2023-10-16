@@ -9,9 +9,17 @@ export default function LoginForm() {
     const [password, setPassword] = useState()
 
 
-    const signInUrl = "http://localhost:3000/"
+    const signInUrl = "http://localhost:3030/"
 
     const signIn = () => {
+        if (!email) {
+            return alert("Campo email vazio!")
+        }
+
+        else if (!password) {
+            return alert("Campo senha vazio!")
+        }
+
         axios
             .post(signInUrl, {email, password})
             .then((res) => console.log(res.data))
@@ -43,7 +51,7 @@ export default function LoginForm() {
 
                 <div className="flex flex-col items-center">
                     <button className="px-7 py-3 mb-5 border border-gray-100 rounded-sm" type="button" onClick={() => {signIn()}}>Entrar</button>
-                    <Link className="underline" href="/register">Cadastrar-se</Link>
+                    <Link className="underline" href="/signup">Cadastrar-se</Link>
                 </div>
             </fieldset>
         </form>
