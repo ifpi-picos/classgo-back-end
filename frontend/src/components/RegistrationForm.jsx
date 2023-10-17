@@ -8,9 +8,9 @@ export default function RegistrationForm() {
     const [name, setName] = useState()
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
-    const [confirmPassoword, setConfirmPassword] = useState()
+    const [confirmPassword, setConfirmPassword] = useState()
 
-    const signUpUrl = "http://localhost:3000/signup"
+    const signUpUrl = "http://localhost:3030/signup"
 
     const signUp = () => {
         if (!name) {
@@ -25,7 +25,7 @@ export default function RegistrationForm() {
             return alert("Campo senha vazio!")
         }
 
-        if (password != confirmPassoword) {
+        if (password != confirmPassword) {
             return alert("Senha e Confirmação de senha distintas!")
         }
 
@@ -36,7 +36,7 @@ export default function RegistrationForm() {
     }
 
     return (
-        <form className="w-1/3 h-4/5 bg-blue-500 text-gray-100 font-semibold border-gray-100 border rounded-xl flex justify-center items-center">
+        <form className="w-1/3 h-3/4 bg-blue-500 text-gray-100 font-semibold border-gray-100 border rounded-xl flex justify-center items-center">
             <fieldset className="w-5/6 h-5/6 border border-gray-100 flex flex-col justify-evenly rounded-xl">
                 <legend className="m-auto px-6 py-3 border border-gray-100 rounded-sm">idCurso</legend>
 
