@@ -2,28 +2,43 @@
 
 import axios from "axios"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { useState } from "react"
 
 export default function LoginForm() {
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
 
-
     const signInUrl = "http://localhost:3030/"
+
+    const router = useRouter()
 
     const signIn = () => {
         if (!email) {
-            return alert("Campo email vazio!")
+            return alert("Campo Email vazio!")
         }
 
         else if (!password) {
-            return alert("Campo senha vazio!")
+            return alert("Campo Senha vazio!")
         }
 
         axios
             .post(signInUrl, {email, password})
-            .then((res) => console.log(res.data))
-            .catch((err) => console.log(err))
+            .then((res) => {
+                localStorage.setItem("token", res.data)
+                alert("Login realiado com sucesso!")
+            })
+            .catch((err) => {
+                if (err.response.data === "user not exist") {
+                    return alert("Usuário não cadastrado!")
+                }
+
+                else if (err.response.data === "password invalid") {
+                    return alert("Senha incorreta!")
+                }
+
+                return console.log(err)
+            })
     }
 
     return (
@@ -43,7 +58,7 @@ export default function LoginForm() {
 
                     <div className="w-5/6 flex flex-col">
                         <label className="mb-3" htmlFor="password">Senha</label>
-                        <input className="text-gray-800 px-2 py-1 border border-gray-100 rounded-sm" id="passoword" name="password" type="password" placeholder="Digite sua senha" required onChange={(e) => setPassword(e.currentTarget.value)}/>
+                        <input className="text-gray-800 px-2 py-1 border border-gray-100 rounded-sm" id="password" name="password" type="password" placeholder="Digite sua senha" required onChange={(e) => setPassword(e.currentTarget.value)}/>
 
                         <Link className="mt-3 underline flex justify-end" href="/forgotpassword">esqueceu senha?</Link>
                     </div>

@@ -2,6 +2,7 @@
 
 import axios from "axios"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { useState } from "react"
 
 export default function RegistrationForm() {
@@ -12,17 +13,23 @@ export default function RegistrationForm() {
 
     const signUpUrl = "http://localhost:3030/signup"
 
+    const router = useRouter()
+
     const signUp = () => {
         if (!name) {
-            return alert("Campo nome vazio!")
+            return alert("Campo Nome vazio!")
         }
 
         else if (!email) {
-            return alert("Campo email vazio!")
+            return alert("Campo Email vazio!")
         }
 
         else if (!password) {
-            return alert("Campo senha vazio!")
+            return alert("Campo Senha vazio!")
+        }
+
+        else if (!confirmPassword) {
+            return alert("Campo Confirmação de senha vazio!")
         }
 
         if (password != confirmPassword) {
@@ -30,9 +37,22 @@ export default function RegistrationForm() {
         }
 
         axios
-            .post(signUpUrl, {name, email, password})
-            .then((res) => console.log(res.data))
-            .catch((err) => console.log(err))
+            .post(signUpUrl, {name, email, password, confirmPassword})
+            .then((res) => {
+                if (res.data === "user registered successfully") {
+                    alert("Usuário cadastrado com sucesso!")
+                    return router.push("/")
+                }
+
+                return console.log(res)
+            })
+            .catch((err) => {
+                if (err.response.data === "user exist") {
+                    return alert("Usuário já cadastrado!")
+                }
+
+                return console.log(err)
+            })
     }
 
     return (
@@ -56,13 +76,13 @@ export default function RegistrationForm() {
                     </div>
 
                     <div className="w-5/6 mb-5 flex flex-col">
-                        <label className="mb-3" htmlFor="passoword">Senha</label>
-                        <input className="text-gray-800 px-2 py-1 border border-gray-100 rounded-sm" id="passoword" name="password" type="password" placeholder="Digite sua senha" required onChange={(e) => setPassword(e.currentTarget.value)}/>
+                        <label className="mb-3" htmlFor="password">Senha</label>
+                        <input className="text-gray-800 px-2 py-1 border border-gray-100 rounded-sm" id="password" name="password" type="password" placeholder="Digite sua senha" required onChange={(e) => setPassword(e.currentTarget.value)}/>
                     </div>
 
                     <div className="w-5/6 mb-5 flex flex-col">
-                        <label className="mb-3" htmlFor="confirmPassowrd">Confirmar Senha</label>
-                        <input className="text-gray-800 px-2 py-1 border border-gray-100 rounded-sm" id="confirmPassword" name="confirmPassowrd" type="password" placeholder="Confirme sua senha" required onChange={(e) => setConfirmPassword(e.currentTarget.value)}/>
+                        <label className="mb-3" htmlFor="confirmPassword">Confirmar Senha</label>
+                        <input className="text-gray-800 px-2 py-1 border border-gray-100 rounded-sm" id="confirmPassword" name="confirmPassword" type="password" placeholder="Confirme sua senha" required onChange={(e) => setConfirmPassword(e.currentTarget.value)}/>
                     </div>
                 </div>
 

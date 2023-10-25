@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize"
 import database from "../config/database.js"
 
-const users = database.define("users", {
+const Teacher = database.define("teachers", {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -9,12 +9,12 @@ const users = database.define("users", {
     },
 
     name: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(50),
         alowNull: false
     },
 
     email: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(50),
         alowNull: false
     },
 
@@ -24,6 +24,4 @@ const users = database.define("users", {
     }
 })
 
-database.sync()
-
-export default users
+export default Teacher
