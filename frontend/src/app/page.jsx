@@ -1,9 +1,9 @@
-import LoginForm from "@/components/LoginForm"
+import SignInForm from "@/components/SignInForm"
 
-export default function Home() {
+export default function SignInPage() {
   return (
     <main className="h-screen w-full flex items-center justify-center">
-      <LoginForm/>
+      <SignInForm/>
     </main>
   )
 }

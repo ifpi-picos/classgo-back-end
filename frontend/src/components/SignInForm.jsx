@@ -5,7 +5,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 
-export default function LoginForm() {
+export default function SignInForm() {
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
 
@@ -25,19 +25,29 @@ export default function LoginForm() {
         axios
             .post(signInUrl, {email, password})
             .then((res) => {
-                localStorage.setItem("token", res.data)
-                alert("Login realiado com sucesso!")
+                if (res.status === 200) {
+                    localStorage.setItem("token", res.data.token)
+                    localStorage.setItem("userId", res.data.userId)
+
+                    if (res.data.userType === "administrador") {
+                        return router.replace("/users")
+                    }
+
+                    return router.replace("/courses")
+                }
+
+                else if (res.status === 400) {
+                    alert(res.data)
+                }
+
+                return console.log(res.data)
             })
             .catch((err) => {
-                if (err.response.data === "user not exist") {
-                    return alert("Usuário não cadastrado!")
+                if (err.response.status === 400) {
+                    return alert(err.response.data)
                 }
 
-                else if (err.response.data === "password invalid") {
-                    return alert("Senha incorreta!")
-                }
-
-                return console.log(err)
+                return console.log(err.response.data)
             })
     }
 

@@ -1,9 +1,9 @@
-import RegistrationForm from "@/components/RegistrationForm"
+import SignUpForm from "@/components/SignUpForm"
 
-export default function SignInPage () {
+export default function SignUpPage () {
     return (
         <main className="h-screen w-full flex items-center justify-center">
-            <RegistrationForm/>
+            <SignUpForm/>
         </main>
     )
 }

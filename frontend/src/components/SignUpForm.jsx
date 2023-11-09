@@ -5,11 +5,13 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 
-export default function RegistrationForm() {
+export default function SignUpForm() {
     const [name, setName] = useState()
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
     const [confirmPassword, setConfirmPassword] = useState()
+
+    const type = "Professor"
 
     const signUpUrl = "http://localhost:3030/signup"
 
@@ -29,34 +31,42 @@ export default function RegistrationForm() {
         }
 
         else if (!confirmPassword) {
-            return alert("Campo Confirmação de senha vazio!")
+            return alert("Campo Confirmar Senha vazio!")
         }
 
         if (password != confirmPassword) {
-            return alert("Senha e Confirmação de senha distintas!")
+            return alert("Campos Senha e Confirmar Senha distintos!")
         }
 
         axios
-            .post(signUpUrl, {name, email, password, confirmPassword})
+            .post(signUpUrl, {name, email, type, password, confirmPassword})
             .then((res) => {
-                if (res.data === "user registered successfully") {
-                    alert("Usuário cadastrado com sucesso!")
-                    return router.push("/")
+                if (res.status === 201) {
+                    alert(res.data)
+                    return router.replace("/")
                 }
 
-                return console.log(res)
+                if (res.status === 400) {
+                    return alert(res.data)
+                }
+
+                return console.log(res.data)
             })
             .catch((err) => {
-                if (err.response.data === "user exist") {
-                    return alert("Usuário já cadastrado!")
+                if (err.response.status === 200) {
+                    return alert(err.response.data)
                 }
 
-                return console.log(err)
+                else if (err.response.status === 400) {
+                    return alert(err.response.data)
+                }
+
+                return console.log(err.response.data)
             })
     }
 
     return (
-        <form className="w-1/3 h-3/4 bg-blue-500 text-gray-100 font-semibold border-gray-100 border rounded-xl flex justify-center items-center">
+        <form className="w-1/3 h-4/5 bg-blue-500 text-gray-100 font-semibold border-gray-100 border rounded-xl flex justify-center items-center">
             <fieldset className="w-5/6 h-5/6 border border-gray-100 flex flex-col justify-evenly rounded-xl">
                 <legend className="m-auto px-6 py-3 border border-gray-100 rounded-sm">idCurso</legend>
 
