@@ -8,7 +8,7 @@ const dbUser = process.env.DATABASE_USER
 const dbPassword = process.env.DATABASE_PASSWORD
 const host = process.env.HOST
 const dialect = process.env.DIALECT
-
+console.log('dialect', dialect)
 const database = new Sequelize(dbName, dbUser, dbPassword, {host: host, dialect: dialect})
 
 export default database
