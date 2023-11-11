@@ -17,4 +17,13 @@ const database = new Sequelize(dbName, dbUser, dbPassword, {
     port: port
 })
 
+database
+    .authenticate()
+    .then(() => {
+        console.log('Connection has been established successfully.');
+    })
+    .catch(err => {
+        console.error('Unable to connect to the database:', err);
+    })
+
 export default database
