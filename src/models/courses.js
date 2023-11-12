@@ -27,6 +27,4 @@ const Course = database.define("Course", {
     }
 )
 
-//database.sync()
-
 export default Course
