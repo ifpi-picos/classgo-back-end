@@ -1,6 +1,6 @@
 import dotenv from "dotenv"
 import Sequelize from "sequelize"
-import postgres from "postgres"
+import postgres from "pg"
 
 dotenv.config()
 
