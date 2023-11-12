@@ -63,5 +63,5 @@ export const signIn = async (req, res) => {
 
     const token = jwt.sign({userId: user.id}, process.env.JWT_SECRET, {expiresIn: 60})
 
-    return res.status(200).send({userId: user.id, userType: user.type, token})
+    return res.status(200).send({token})
 }
