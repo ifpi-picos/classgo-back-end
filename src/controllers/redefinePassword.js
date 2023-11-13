@@ -1,19 +1,19 @@
-import {hash} from "bcrypt"
+import {compare, hash} from "bcrypt"
 import User from "../models/users.js"
 
 const redefinePassword = async (req, res) => {
-    const {email, newPassword, confirmNewPassword} = req.body
+    const {email, password, newPassword} = req.body
 
     if (!email) {
         return res.status(400).send("Campo Email vazio!")
     }
     
-    else if (!newPassword) {
-        return res.status(400).send("Campo Nova Senha vazio!")
+    else if (!password) {
+        return res.status(400).send("Campo Senha Atual vazio!")
     }
     
-    else if (!confirmNewPassword) {
-        return res.status(400).send("Campo Confirmar Nova Senha vazio!")
+    else if (!newPassword) {
+        return res.status(400).send("Campo Nova Senha vazio!")
     }
 
     const user = await User.findOne({where: {email: email}})
@@ -22,9 +22,15 @@ const redefinePassword = async (req, res) => {
         return res.status(400).send("Usuário não cadastrado!")
     }
 
-    const dbPassowrd = await hash(password, 8)
+    const isMatch = await compare(password, user.password)
 
-    await User.update({password: dbPassowrd}, {where: {id: user.id}})
+    if (!isMatch) {
+        return res.status(400).send("Senha Atual inválida!")
+    }
+
+    const dbPassoword = await hash(newPassword, 8)
+
+    await User.update({password: dbPassoword}, {where: {id: user.id}})
 
     return res.status(200).send("Senha redefinida com sucesso!")
 }

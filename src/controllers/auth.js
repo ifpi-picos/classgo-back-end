@@ -31,9 +31,9 @@ export const signUp = async (req, res) => {
         return res.status(400).send("Usuário já cadastrado!")
     }
 
-    const dbPassowrd = await hash(password, 8)
+    const dbPassoword = await hash(password, 8)
 
-    await User.create({name, email, type, password: dbPassowrd})
+    await User.create({name, email, type, password: dbPassoword})
 
     return res.status(201).send("Usuário cadastrado com sucesso!")
 }
