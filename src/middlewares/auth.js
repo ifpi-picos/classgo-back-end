@@ -9,7 +9,7 @@ const verifyToken = async (req, res, next) => {
 
     jwt.verify(token, process.env.JWT_SECRET, (error, decode) => {
         if (error) {
-            return res.status(401).send(error.message)
+            return res.status(401).send(error.message, decode)
         }
 
         req.userId = decode.id
