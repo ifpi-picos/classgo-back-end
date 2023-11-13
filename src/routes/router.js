@@ -7,6 +7,6 @@ const router = Router()
 
 router.use("/", authRouter)
 router.use("/courses", courseRouter)
-router.use("/redefinePassword", redefinePasswordRouter)
+router.use("/redefinepassword", redefinePasswordRouter)
 
 export default router
