@@ -3,6 +3,6 @@ import { Router } from "express"
 
 const redefinePasswordRouter = Router()
 
-redefinePasswordRouter.put("/:id", redefinePassword)
+redefinePasswordRouter.put("/", redefinePassword)
 
 export default redefinePasswordRouter
