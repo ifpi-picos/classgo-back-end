@@ -13,7 +13,7 @@ const verifyToken = async (req, res, next) => {
         }
 
         req.userId = decode.id
-        res.send(req.userId)
+        res.send(decode)
         return next()
     })
 }
