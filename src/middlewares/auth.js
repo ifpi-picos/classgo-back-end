@@ -12,8 +12,8 @@ const verifyToken = async (req, res, next) => {
             return res.status(401).send(error.message)
         }
 
-        req.userId = decode.id
-        res.send(decode)
+        req.userId = decode.userId
+
         return next()
     })
 }
