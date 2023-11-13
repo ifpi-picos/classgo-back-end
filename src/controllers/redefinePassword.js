@@ -28,9 +28,9 @@ const redefinePassword = async (req, res) => {
         return res.status(400).send("Senha Atual inválida!")
     }
 
-    const dbPassoword = await hash(newPassword, 8)
+    const dbPassword = await hash(newPassword, 8)
 
-    await User.update({password: dbPassoword}, {where: {id: user.id}})
+    await User.update({password: dbPassword}, {where: {id: user.id}})
 
     return res.status(200).send("Senha redefinida com sucesso!")
 }
