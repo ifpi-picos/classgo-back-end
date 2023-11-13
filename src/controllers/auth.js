@@ -1,6 +1,6 @@
-import User from "../models/users.js"
-import bcrypt from "bcrypt"
+import {hash} from "bcrypt"
 import jwt from "jsonwebtoken"
+import User from "../models/users.js"
 
 export const signUp = async (req, res) => {
     const {name, email, type, password, confirmPassword} = req.body
@@ -31,7 +31,7 @@ export const signUp = async (req, res) => {
         return res.status(400).send("Usuário já cadastrado!")
     }
 
-    const dbPassowrd = await bcrypt.hash(password, 8)
+    const dbPassowrd = await hash(password, 8)
 
     await User.create({name, email, type, password: dbPassowrd})
 
@@ -41,17 +41,18 @@ export const signUp = async (req, res) => {
 export const signIn = async (req, res) => {
     const {email, password} = req.body
 
-    const user = await User.findOne({where: {email: email}})
-
+    
     if (!email) {
         return res.status(400).send("Campo Email vazio!")
     }
-
-    if (!password) {
+    
+    else if (!password) {
         return res.status(400).send("Campo Senha vazio!")
     }
+    
+    const user = await User.findOne({where: {email: email}})
 
-    else if (!user) {
+    if (!user) {
         return res.status(400).send("Usuário não cadastrado!")
     }
 
