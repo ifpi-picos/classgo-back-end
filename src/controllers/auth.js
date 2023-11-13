@@ -1,4 +1,4 @@
-import {hash} from "bcrypt"
+import {hash, compare} from "bcrypt"
 import jwt from "jsonwebtoken"
 import User from "../models/users.js"
 
@@ -56,7 +56,7 @@ export const signIn = async (req, res) => {
         return res.status(400).send("Usuário não cadastrado!")
     }
 
-    const isMatch = await bcrypt.compare(password, user.password)
+    const isMatch = await compare(password, user.password)
 
     if (!isMatch) {
         return res.status(400).send("Senha inválida!")
