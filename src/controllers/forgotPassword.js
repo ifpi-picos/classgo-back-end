@@ -12,7 +12,7 @@ const requestNewPassword = async (req, res) => {
     const user = await User.findOne({where: {email: email}})
 
     if (!user) {
-        return res.status(400).send("User não cadastrado!")
+        return res.status(400).send("Usuário não cadastrado!")
     }
 
     const transport = createTransport({
