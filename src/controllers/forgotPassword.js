@@ -24,7 +24,7 @@ const requestNewPassword = async (req, res) => {
 
     transport.sendMail({
         from: "Landeilson Veloso <landeilsonveloso2022@egmail.com>",
-        to: "projetopazhealth@gmail.com",
+        to: `${user.email}`,
         subject: "Solicitação de Alteração de Senha",
         html: `
                 <h1>Olá, ${user.name}<h1/>
