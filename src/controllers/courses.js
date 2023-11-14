@@ -6,10 +6,6 @@ export const create = async (req, res) => {
     if (!description) {
         return res.status(400).send("Campo Nome do Curso vazio!")
     }
-    
-    else if (!userId) {
-        return res.status(400).send("Campo Id do Usuário vazio")
-    }
 
     await Course.create({description, userId})
 
