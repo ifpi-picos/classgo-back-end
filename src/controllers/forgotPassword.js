@@ -15,7 +15,7 @@ const requestNewPassword = async (req, res) => {
         return res.status(400).send("Usuário não cadastrado!")
     }
 
-    const code = await hash("code", 8)
+    const code = await hash("code", 2)
 
     const transport = createTransport({
         host: "smtp.gmail.com",
@@ -34,7 +34,7 @@ const requestNewPassword = async (req, res) => {
 
     await transport.sendMail(mailOptions)
 
-    return res.status(200).send("Pedido de solicitação enviado para seu email!")
+    return res.status(200).send({code: code, message: "Pedido de solicitação enviado para seu email!"})
 }
 
 export default requestNewPassword
