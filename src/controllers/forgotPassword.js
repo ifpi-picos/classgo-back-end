@@ -28,8 +28,8 @@ const requestNewPassword = async (req, res) => {
         from: "Landeilson Veloso <landeilsonveloso2022@egmail.com>",
         to: `${user.email}`,
         subject: "Solicitação de Alteração de Senha",
-        html: `<h1>Olá, ${user.name}<h1/>` `<p>Insira o código para alterar sua senha: ${code}<p/>`,
-        text: `Olá, ${user.name}. Insira o código para alterar sua senha: ${code}`
+        html: `<p>Insira o código para alterar sua senha: ${code}<p/>`,
+        text: `Insira o código para alterar sua senha: ${code}`
     }
 
     await transport.sendMail(mailOptions)
