@@ -15,7 +15,7 @@ const requestNewPassword = async (req, res) => {
         return res.status(400).send("Usuário não cadastrado!")
     }
 
-    const code = hash("code", 8)
+    const code = await hash("code", 8)
 
     const transport = createTransport({
         host: "smtp.gmail.com",
