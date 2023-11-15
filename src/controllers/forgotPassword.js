@@ -1,5 +1,5 @@
 import { createTransport } from "nodemailer"
-import { hash } from "bcrypt"
+import jwt from "jsonwebtoken"
 import User from "../models/users.js"
 
 const requestNewPassword = async (req, res) => {
@@ -15,7 +15,9 @@ const requestNewPassword = async (req, res) => {
         return res.status(400).send("Usuário não cadastrado!")
     }
 
-    const code = await hash("code", 8)
+    const token = jwt.sign({userId: user.id}, process.env.JWT_SECRET, {expiresIn: 120})
+
+    const message = "Pedido de solicitação enviado para seu email!"
 
     const transport = createTransport({
         host: "smtp.gmail.com",
@@ -28,12 +30,20 @@ const requestNewPassword = async (req, res) => {
         from: "Landeilson Veloso <landeilsonveloso2022@egmail.com>",
         to: `${user.email}`,
         subject: "Solicitação de Alteração de Senha",
-        text: `Olá, ${user.name}. Insira o código para alterar sua senha: ${code}`
+        html: `
+                <h1>
+                    Olá, ${user.name}! Tudo bem?
+                <h1/>
+
+                <p>
+                    Acesse o link para alterar sua senha:<a href="https://reverse-time-front-end.vercel.app/redefinepassword">Altear Senha<a/>
+                <p/>
+            `
     }
 
     await transport.sendMail(mailOptions)
 
-    return res.status(200).send({code: code, message: "Pedido de solicitação enviado para seu email!"})
+    return res.status(200).send({token: token, message: message})
 }
 
 export default requestNewPassword
