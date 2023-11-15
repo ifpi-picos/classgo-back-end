@@ -15,7 +15,7 @@ const requestNewPassword = async (req, res) => {
         return res.status(400).send("Usuário não cadastrado!")
     }
 
-    const code = await hash("123", 8)
+    const code = await hash("code", 8)
 
     const transport = createTransport({
         host: "smtp.gmail.com",
@@ -28,7 +28,7 @@ const requestNewPassword = async (req, res) => {
         from: "Landeilson Veloso <landeilsonveloso2022@egmail.com>",
         to: `${user.email}`,
         subject: "Solicitação de Alteração de Senha",
-        html: `<h1>Olá, ${user.name}<h1/> <p>Insira o código para alterar sua senha: ${code}<p/>`,
+        html: `<h1>Olá, ${user.name}<h1/>` `<p>Insira o código para alterar sua senha: ${code}<p/>`,
         text: `Olá, ${user.name}. Insira o código para alterar sua senha: ${code}`
     }
 
