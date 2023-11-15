@@ -22,7 +22,7 @@ const requestNewPassword = async (req, res) => {
         auth: {user: "landeilsonveloso2022@gmail.com", pass: "imxmecmisjczdtkp"}
     })
 
-    transport.sendMail({
+    await transport.sendMail({
         from: "Landeilson Veloso <landeilsonveloso2022@egmail.com>",
         to: `${user.email}`,
         subject: "Solicitação de Alteração de Senha",
@@ -33,6 +33,12 @@ const requestNewPassword = async (req, res) => {
         text: `
                 Olá, ${user.name}. Acesse o link para alterar sua senha: https://reverse-time-front-end.vercel.app/redefinepassword
             `
+    }, (err, info) => {
+        if (err) {
+            return res.status(400).send(err)
+        }
+
+        return res.status(200).send(info)
     })
 
     const token = jwt.sign({userId: user.id}, process.env.JWT_SECRET, {expiresIn: 120})
