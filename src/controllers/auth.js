@@ -40,7 +40,6 @@ export const signUp = async (req, res) => {
 
 export const signIn = async (req, res) => {
     const {email, password} = req.body
-
     
     if (!email) {
         return res.status(400).send("Campo Email vazio!")
