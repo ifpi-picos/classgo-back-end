@@ -4,7 +4,7 @@ export const create = async (req, res) => {
     const {description, userId} = req.body
 
     if (!description) {
-        return res.status(400).send("Campo Nome do Curso vazio!")
+        return res.status(400).send("Campo nome do curso obrigatório!")
     }
 
     await Course.create({description, userId})

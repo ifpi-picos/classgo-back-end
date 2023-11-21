@@ -5,15 +5,15 @@ const redefinePassword = async (req, res) => {
     const {newPassword, confirmNewPassword, userId} = req.body
     
     if (!newPassword) {
-        return res.status(400).send("Campo Senha Atual vazio!")
+        return res.status(400).send("Campo senha atual obrigatório!")
     }
     
     else if (!confirmNewPassword) {
-        return res.status(400).send("Campo Nova Senha vazio!")
+        return res.status(400).send("Campo nova senha obrigatório!")
     }
 
     else if (newPassword != confirmNewPassword) {
-        return res.status(400).send("Campos Nova Senha e Confirmar Nova Senha distintos!")
+        return res.status(400).send("Campos nova senha e confirmar nova senha distintos!")
     }
 
     const dbPassword = await hash(newPassword, 8)

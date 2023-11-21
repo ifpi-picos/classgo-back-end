@@ -6,23 +6,23 @@ export const signUp = async (req, res) => {
     const {name, email, type, password, confirmPassword} = req.body
 
     if (!name) {
-        return res.status(400).send("Campo Nome vazio!")
+        return res.status(400).send("Campo nome obrigatório!")
     }
 
     else if (!email) {
-        return res.status(400).send("Campo Email vazio!")
+        return res.status(400).send("Campo email obrigatório!")
     }
 
     else if (!password) {
-        return res.status(400).send("Campo Senha vazio!")
+        return res.status(400).send("Campo senha obrigatório!")
     }
 
     else if (!confirmPassword) {
-        return res.status(400).send("Campo Confirmar Senha vazio!")
+        return res.status(400).send("Campo confirmar senha obrigatório!")
     }
 
     else if (password != confirmPassword) {
-        return res.status(400).send("Campos Senha e Confirmar Senha distintos!")
+        return res.status(400).send("Campos senha e confirmar senha distintos!")
     }
 
     const dbEmail = await User.findOne({where: {email: email}})
@@ -42,11 +42,11 @@ export const signIn = async (req, res) => {
     const {email, password} = req.body
     
     if (!email) {
-        return res.status(400).send("Campo Email vazio!")
+        return res.status(400).send("Campo email obrigatório!")
     }
     
     else if (!password) {
-        return res.status(400).send("Campo Senha vazio!")
+        return res.status(400).send("Campo senha obrigatório!")
     }
     
     const user = await User.findOne({where: {email: email}})
