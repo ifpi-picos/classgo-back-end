@@ -13,11 +13,11 @@ export const create = async (req, res) => {
 }
 
 export const read = async (req, res) => {
-    const {description} = req.body
+    const {userId} = req.body
 
     const course = await Course.findOne({
-        attributes: ["description"], where: {description: description}
+        attributes: ["description"], where: {userId: userId}
     })
 
-    return res.send(course)
+    return res.status(200).send(course)
 }
