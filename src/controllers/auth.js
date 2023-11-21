@@ -66,5 +66,9 @@ export const signIn = async (req, res) => {
 
     const course = await Course.findOne({where: {userId: user.id}})
 
+    if (!course) {
+        return res.status(200).send({token: token, userType: user.type})
+    }
+
     return res.status(200).send({token: token, userType: user.type, course: course})
 }
