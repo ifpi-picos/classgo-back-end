@@ -1,6 +1,7 @@
 import {hash, compare} from "bcrypt"
 import jwt from "jsonwebtoken"
 import User from "../models/users.js"
+import Course from "../models/courses.js"
 
 export const signUp = async (req, res) => {
     const {name, email, type, password, confirmPassword} = req.body
@@ -63,5 +64,7 @@ export const signIn = async (req, res) => {
 
     const token = jwt.sign({userId: user.id}, process.env.JWT_SECRET, {expiresIn: 60})
 
-    return res.status(200).send({token: token, userType: user.type})
+    const course = await Course.findOne({where: {userId: user.id}})
+
+    return res.status(200).send({token: token, userType: user.type, course: course})
 }
