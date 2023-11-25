@@ -1,7 +1,7 @@
 import database from "../config/database.js"
 import { DataTypes } from "sequelize"
 
-const Course = database.define("Course", {
+const Class = database.define("Class", {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -23,8 +23,8 @@ const Course = database.define("Course", {
 }, 
 
     {
-        tableName: "courses"
+        tableName: "classes"
     }
 )
 
-export default Course
+export default Class
