@@ -4,6 +4,6 @@ import verifyToken from "../middlewares/auth.js"
 
 const redefinePasswordRouter = Router()
 
-redefinePasswordRouter.put("/", verifyToken, redefinePassword)
+redefinePasswordRouter.put("/:id", verifyToken, redefinePassword)
 
 export default redefinePasswordRouter

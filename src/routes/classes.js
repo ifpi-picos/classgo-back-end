@@ -4,9 +4,9 @@ import verifyToken from "../middlewares/auth.js"
 
 const classRouter = Router()
 
-classRouter.post("/", verifyToken, create)
+classRouter.post("/create", verifyToken, create)
 classRouter.get("/", verifyToken, findAll)
-classRouter.put("/:id", verifyToken, update)
-classRouter.delete("/:id", verifyToken, destroy)
+classRouter.put("/update/:id", verifyToken, update)
+classRouter.delete("/delete/:id", verifyToken, destroy)
 
 export default classRouter

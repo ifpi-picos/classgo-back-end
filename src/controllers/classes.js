@@ -21,7 +21,7 @@ export const findAll = async (req, res) => {
 }
 
 export const update = async (req, res) => {
-    const id = req.params.id
+    const {id} = req.params
     const {description} = req.body
 
     await Class.update({description: description}, {where: {id: id}})
@@ -30,7 +30,7 @@ export const update = async (req, res) => {
 }
 
 export const destroy = async (req, res) => {
-    const id = req.params.id
+    const {id} = req.params
 
     await Class.destroy({where: {id: id}})
 

@@ -2,7 +2,8 @@ import {hash} from "bcrypt"
 import User from "../models/users.js"
 
 const redefinePassword = async (req, res) => {
-    const {newPassword, confirmNewPassword, userId} = req.body
+    const {id} = req.params
+    const {newPassword, confirmNewPassword} = req.body
     
     if (!newPassword) {
         return res.status(400).send("Campo senha atual obrigatório!")
@@ -18,7 +19,7 @@ const redefinePassword = async (req, res) => {
 
     const dbPassword = await hash(newPassword, 8)
 
-    await User.update({password: dbPassword}, {where: {id: userId}})
+    await User.update({password: dbPassword}, {where: {id: id}})
 
     return res.status(200).send("Senha redefinida com sucesso!")
 }
