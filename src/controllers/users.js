@@ -9,7 +9,6 @@ export const findOne = async (req, res) => {
 }
 
 export const findAll = async (_, res) => {
-
     const users = await User.findAll()
 
     return res.status(200).send(users)
@@ -29,12 +28,7 @@ export const update = async (req, res) => {
 
     const user = await User.update({name: name, email: email}, {where: {id: id}})
 
-    if (!user) {
-        return res.status(400).send(id)
-    }
-
-    return res.status(200).send(user)
-
+    return res.status(200).send("Usuário atualizado com sucesso!")
 }
 
 export const destroy = async (req, res) => {
