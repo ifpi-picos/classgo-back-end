@@ -16,17 +16,17 @@ export const findAll = async (_, res) => {
 
 export const update = async (req, res) => {
     const {id} = req.params
-    const {name, email} = req.body
+    const {newName, newEmail} = req.body
 
-    if (!name) {
+    if (!newName) {
         return res.status(400).send("Campo nome obrigatório!")
     }
 
-    else if (!email) {
+    else if (!newEmail) {
         return res.status(400).send("Campo email obrigatório!")
     }
 
-    const user = await User.update({name: name, email: email}, {where: {id: id}})
+    const user = await User.update({name: newName, email: newEmail}, {where: {id: id}})
 
     return res.status(200).send("Usuário atualizado com sucesso!")
 }
