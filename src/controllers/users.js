@@ -27,9 +27,14 @@ export const update = async (req, res) => {
         return res.status(400).send("Campo email obrigatório!")
     }
 
-    await User.update({name: name, email: email}, {where: {id: id}})
+    const user = await User.update({name: name, email: email}, {where: {id: id}})
+
+    if (!user) {
+        return res.status(400).send(id)
+    }
 
     return res.status(200).send("Usuário atualizado com sucesso!")
+
 }
 
 export const destroy = async (req, res) => {
