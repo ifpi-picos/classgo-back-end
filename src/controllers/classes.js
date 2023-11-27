@@ -1,22 +1,21 @@
 import Class from "../models/classes.js"
 
 export const create = async (req, res) => {
-    const {id} = req.params
-    const {description} = req.body
+    const {description, userId} = req.body
 
     if (!description) {
         return res.status(400).send("Campo nome do curso obrigatório!")
     }
 
-    await Class.create({description, id})
+    await Class.create({description, userId})
 
     return res.status(201).send("Curso criado com sucesso!")
 }
 
 export const findAll = async (req, res) => {
-    const {id} = req.params
+    const {userId} = req.body
 
-    const classes = await Class.findAll({where: {userId: id}})
+    const classes = await Class.findAll({where: {userId: userId}})
 
     return res.status(200).send(classes)
 }
