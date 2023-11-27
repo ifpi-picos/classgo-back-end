@@ -33,9 +33,9 @@ export const update = async (req, res) => {
 }
 
 export const destroy = async (req, res) => {
-    const id = req.params.id
+    const {userId} = req.body
 
-    await User.destroy({where: {id: id}})
+    await User.destroy({where: {id: userId}})
 
     return res.status(200).send("Conta excluida com sucesso!")
 }
