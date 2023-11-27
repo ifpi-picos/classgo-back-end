@@ -16,8 +16,7 @@ export const findAll = async (_, res) => {
 }
 
 export const update = async (req, res) => {
-    const {userId} = req.body
-    const {name, email} = req.body
+    const {userId, name, email} = req.body
 
     if (!name) {
         return res.status(400).send("Campo nome obrigatório!")
