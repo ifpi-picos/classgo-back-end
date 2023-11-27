@@ -1,7 +1,7 @@
 import User from "../models/users.js"
 
 export const findOne = async (req, res) => {
-    const id = req.params.id
+    const {id} = req.params
 
     const user = await User.findOne({where: {id: id}})
 
@@ -16,7 +16,7 @@ export const findAll = async (_, res) => {
 }
 
 export const update = async (req, res) => {
-    const id = req.params.id
+    const {id} = req.params
     const {name, email} = req.body
 
     if (!name) {
@@ -33,7 +33,7 @@ export const update = async (req, res) => {
 }
 
 export const destroy = async (req, res) => {
-    const id = req.params.id
+    const {id} = req.params
 
     await User.destroy({where: {id: id}})
 
