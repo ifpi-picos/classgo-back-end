@@ -33,7 +33,7 @@ export const update = async (req, res) => {
         return res.status(400).send(id)
     }
 
-    return res.status(200).send("Usuário atualizado com sucesso!")
+    return res.status(200).send(user)
 
 }
 
