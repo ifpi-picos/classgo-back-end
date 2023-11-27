@@ -27,7 +27,7 @@ export const update = async (req, res) => {
         return res.status(400).send("Campo email obrigatório!")
     }
 
-    await User.update({name: name, email: email, password: dbPassword}, {where: {id: id}})
+    await User.update({name: name, email: email}, {where: {id: id}})
 
     return res.status(200).send("Usuário atualizado com sucesso!")
 }
