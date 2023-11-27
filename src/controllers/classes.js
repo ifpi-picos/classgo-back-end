@@ -30,7 +30,7 @@ export const update = async (req, res) => {
 }
 
 export const destroy = async (req, res) => {
-    const {id} = req.params
+    const id = req.params.id
 
     await Class.destroy({where: {id: id}})
 
