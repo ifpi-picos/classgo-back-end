@@ -1,9 +1,9 @@
 import User from "../models/users.js"
 
 export const findOne = async (req, res) => {
-    const id = req.params.id
+    const {userId} = req.body
 
-    const user = await User.findOne({where: {id: id}})
+    const user = await User.findOne({where: {id: userId}})
 
     return res.status(200).send(user)
 }
