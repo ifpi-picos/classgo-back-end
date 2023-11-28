@@ -61,7 +61,7 @@ export const signIn = async (req, res) => {
         return res.status(400).send("Senha inválida!")
     }
 
-    const token = jwt.sign({userId: user.id}, process.env.JWT_SECRET, {expiresIn: 60})
+    const token = jwt.sign({userId: user.id}, process.env.JWT_SECRET, {expiresIn: "1d"})
 
     return res.status(200).send({token: token, userType: user.type})
 }
