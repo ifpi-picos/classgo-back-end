@@ -12,7 +12,7 @@ const verifyToken = async (req, res, next) => {
             return res.status(401).send(error.message)
         }
 
-        req.body.id = decode.id
+        req.userId = decode.userId
 
         return next()
     })

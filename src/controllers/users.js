@@ -1,9 +1,9 @@
 import User from "../models/users.js"
 
 export const findOne = async (req, res) => {
-    const {id} = req.params
+    const userId = req.userId
 
-    const user = await User.findOne({where: {id: id}})
+    const user = await User.findOne({where: {id: userId}})
 
     return res.status(200).send(user)
 }
@@ -15,7 +15,7 @@ export const findAll = async (_, res) => {
 }
 
 export const update = async (req, res) => {
-    const {id} = req.params
+    const id = req.params.id
     const {newName, newEmail} = req.body
 
     if (!newName) {
@@ -32,7 +32,7 @@ export const update = async (req, res) => {
 }
 
 export const destroy = async (req, res) => {
-    const {id} = req.params
+    const id = req.params.id
 
     await User.destroy({where: {id: id}})
 
