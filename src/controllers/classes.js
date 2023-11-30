@@ -5,7 +5,7 @@ export const create = async (req, res) => {
     const {description} = req.body
 
     if (!description) {
-        return res.status(400).send("Campo nome do curso obrigatório!")
+        return res.status(400).send("Campo nome da turma obrigatório!")
     }
 
     await Class.create({description, userId})
@@ -16,17 +16,17 @@ export const create = async (req, res) => {
 export const findOne = async (req, res) => {
     const id = req.params.id
 
-    const classOne = await Class.findOne({where: {id: id}})
+    const myClass = await Class.findOne({where: {id: id}})
 
-    return res.status(200).send(classOne)
+    return res.status(200).send(myClass)
 }
 
 export const findAll = async (req, res) => {
     const userId = req.userId
 
-    const classes = await Class.findAll({where: {userId: userId}})
+    const myClasses = await Class.findAll({where: {userId: userId}})
 
-    return res.status(200).send(classes)
+    return res.status(200).send(myClasses)
 }
 
 export const update = async (req, res) => {
