@@ -10,7 +10,7 @@ export const create = async (req, res) => {
 
     await Class.create({description, userId})
 
-    return res.status(201).send("Curso criado com sucesso!")
+    return res.status(201).send("Turma criada com sucesso!")
 }
 
 export const findOne = async (req, res) => {
