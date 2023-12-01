@@ -33,6 +33,10 @@ export const update = async (req, res) => {
     const id = req.params.id
     const {description} = req.body
 
+    if (!description) {
+        return res.status(400).send("Campo nome da turma obrigatório")
+    }
+
     await Class.update({description: description}, {where: {id: id}})
 
     return res.status(200).send("Turma editada com sucesso!")
