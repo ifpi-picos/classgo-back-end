@@ -4,13 +4,18 @@ export const create = async (req, res) => {
     const userId = req.userId
     const {description} = req.body
 
-    if (!description) {
-        return res.status(400).send("Campo nome da turma obrigatório!")
+    try {
+        if (!description) {
+            return res.status(400).send("Campo nome da turma obrigatório!")
+        }
+    
+        await Class.create({description, userId})
+    
+        return res.status(201).send("Turma criada com sucesso!")
+        
+    } catch (error) {
+        return res.status(500).send(error)
     }
-
-    await Class.create({description, userId})
-
-    return res.status(201).send("Turma criada com sucesso!")
 }
 
 export const findOne = async (req, res) => {
@@ -33,19 +38,29 @@ export const update = async (req, res) => {
     const id = req.params.id
     const {description} = req.body
 
-    if (!description) {
-        return res.status(400).send("Campo nome da turma obrigatório")
+    try {
+        if (!description) {
+            return res.status(400).send("Campo nome da turma obrigatório")
+        }
+    
+        await Class.update({description: description}, {where: {id: id}})
+    
+        return res.status(200).send("Turma editada com sucesso!")
+        
+    } catch (error) {
+        return res.status(500).send(error)
     }
-
-    await Class.update({description: description}, {where: {id: id}})
-
-    return res.status(200).send("Turma editada com sucesso!")
 }
 
 export const destroy = async (req, res) => {
     const id = req.params.id
 
-    await Class.destroy({where: {id: id}})
-
-    return res.status(200).send("Turma excluida com sucesso!")
+    try {
+        await Class.destroy({where: {id: id}})
+    
+        return res.status(200).send("Turma excluida com sucesso!")
+        
+    } catch (error) {
+        return res.status(500).send(error)
+    }
 }
