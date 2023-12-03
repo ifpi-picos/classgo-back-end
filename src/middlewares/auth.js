@@ -3,7 +3,7 @@ import Cookies from "universal-cookie"
 
 const verifyToken = async (req, res, next) => {
     const cookies = new Cookies(req.headers.cookie, {path: "/"})
-    const token = cookies.get(req.headers.cookie)
+    const token = cookies.get("token")
 
     if (!token) {
         return res.status(401).send("Token não fornecido!")
