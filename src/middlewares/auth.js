@@ -1,7 +1,8 @@
 import jwt from "jsonwebtoken"
+import Cookies from "universal-cookie"
 
 const verifyToken = async (req, res, next) => {
-    const token = req.headers.cookie
+    const token = new Cookies(req.headers.cookie, {path: "/"})
 
     if (!token) {
         return res.status(401).send("Token não fornecido!")
