@@ -2,18 +2,18 @@ import Class from "../models/classes.js"
 
 export const create = async (req, res) => {
     const userId = req.userId
-    const {description, totalLeassons} = req.body
+    const {description, totalLessons} = req.body
 
     try {
         if (!description) {
             return res.status(400).send("Campo nome da turma obrigatório!")
         }
 
-        else if (!totalLeassons) {
+        else if (!totalLessons) {
             return res.status(400).send("Campo total de aulas obrigatório!")
         }
     
-        await Class.create({description, totalLeassons, userId})
+        await Class.create({description, totalLessons, userId})
     
         return res.status(201).send("Turma criada com sucesso!")
         
