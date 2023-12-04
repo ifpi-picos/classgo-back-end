@@ -14,6 +14,12 @@ const Class = database.define("Class", {
         validate: {notEmpty: true}
     },
 
+    totalLessons: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {notEmpty: true}
+    },
+
     userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
