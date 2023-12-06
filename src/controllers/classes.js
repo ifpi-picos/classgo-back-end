@@ -12,6 +12,12 @@ export const create = async (req, res) => {
         else if (!totalLessons) {
             return res.status(400).send("Campo total de aulas obrigatório!")
         }
+
+        const dbClasse = await Class.findAll({where: {description: description, userId: userId}})
+
+        if (dbClasse) {
+            return res.status(400).send("Turma já criada!")
+        }
     
         await Class.create({description, totalLessons, userId})
     
@@ -40,14 +46,25 @@ export const findAll = async (req, res) => {
 
 export const update = async (req, res) => {
     const id = req.params.id
-    const {description} = req.body
+    const userId = req.userId
+    const {description, totalLessons} = req.body
 
     try {
         if (!description) {
             return res.status(400).send("Campo nome da turma obrigatório")
         }
+
+        else if (!description) {
+            return res.status(400).send("Campo total de aulas obrigatório")
+        }
+
+        const dbClasse = await Class.findAll({where: {description: description, userId: userId}})
+
+        if (dbClasse) {
+            return res.status(400).send("Turma já criada!")
+        }
     
-        await Class.update({description: description}, {where: {id: id}})
+        await Class.update({description: description, totalLessons: totalLessons}, {where: {id: id}})
     
         return res.status(200).send("Turma editada com sucesso!")
         
