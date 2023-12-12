@@ -6,7 +6,7 @@ const classRouter = Router()
 
 classRouter.post("/create", verifyToken, create)
 classRouter.get("/", verifyToken, findAll)
-classRouter.get("/:id", verifyToken, findOne)
+classRouter.get("/:description", verifyToken, findOne)
 classRouter.put("/update/:id", verifyToken, update)
 classRouter.delete("/delete/:id", verifyToken, destroy)
 

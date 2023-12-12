@@ -29,9 +29,10 @@ export const create = async (req, res) => {
 }
 
 export const findOne = async (req, res) => {
-    const id = req.params.id
+    const description = req.params.description
+    const userId = req.userId
 
-    const myClass = await Class.findOne({where: {id: id}})
+    const myClass = await Class.findOne({where: {description: description, userId: userId}})
 
     return res.status(200).send(myClass)
 }
