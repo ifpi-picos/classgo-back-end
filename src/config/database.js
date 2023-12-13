@@ -14,7 +14,7 @@ const database = new Sequelize(dbName, dbUser, dbPassword, {
     host: host,
     dialect: "postgres",
     dialectModule: postgres,
-    port: port
+    port: port,
 })
 
 database

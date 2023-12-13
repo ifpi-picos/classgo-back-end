@@ -1,6 +1,6 @@
 import {hash, compare} from "bcrypt"
 import jwt from "jsonwebtoken"
-import User from "../models/users.js"
+import { User } from "../models/index.js"
 
 export const signUp = async (req, res) => {
     const {name, email, type, password, confirmPassword} = req.body

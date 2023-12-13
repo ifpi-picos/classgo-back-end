@@ -1,4 +1,4 @@
-import Class from "../models/classes.js"
+import { Class } from "../models/index.js"
 
 export const create = async (req, res) => {
     const userId = req.userId

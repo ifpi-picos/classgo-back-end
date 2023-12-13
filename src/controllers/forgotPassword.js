@@ -1,6 +1,6 @@
 import { createTransport } from "nodemailer"
 import jwt from "jsonwebtoken"
-import User from "../models/users.js"
+import { User } from "../models/index.js"
 
 const requestNewPassword = async (req, res) => {
     const {email} = req.body
