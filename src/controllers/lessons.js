@@ -1,8 +1,7 @@
 import { Lesson } from "../models/index.js"
 
 export const create = async (req, res) => {
-    const classId = req.params.id
-    const {description, date} = req.body
+    const {description, date, classId} = req.body
 
     try {
         if (!description) {
