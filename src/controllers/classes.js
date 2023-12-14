@@ -1,4 +1,4 @@
-import { Class } from "../models/index.js"
+import { Class, Lesson } from "../models/index.js"
 
 export const create = async (req, res) => {
     const userId = req.userId
@@ -28,21 +28,31 @@ export const create = async (req, res) => {
     }
 }
 
+export const findAll = async (req, res) => {
+    const userId = req.userId
+
+    try {
+        const myClasses = await Class.findAll({where: {userId: userId}})
+    
+        return res.status(200).send(myClasses)
+              
+    } catch (error) {
+        return res.status(500).send(error)
+    }
+}
+
 export const findOne = async (req, res) => {
     const description = req.params.description
     const userId = req.userId
 
-    const myClass = await Class.findOne({where: {description: description, userId: userId}})
+    try {      
+        const myClass = await Class.findOne({where: {description: description, userId: userId}})
+    
+        return res.status(200).send(myClass)
 
-    return res.status(200).send(myClass)
-}
-
-export const findAll = async (req, res) => {
-    const userId = req.userId
-
-    const myClasses = await Class.findAll({where: {userId: userId}})
-
-    return res.status(200).send(myClasses)
+    } catch (error) {
+        return res.status(500).send(error)
+    }
 }
 
 export const update = async (req, res) => {
@@ -78,6 +88,7 @@ export const destroy = async (req, res) => {
     const id = req.params.id
 
     try {
+        await Lesson.destroy({where: {classId: id}})
         await Class.destroy({where: {id: id}})
     
         return res.status(200).send("Turma excluida com sucesso!")

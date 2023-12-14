@@ -1,5 +1,16 @@
 import { User } from "../models/index.js"
 
+export const findAll = async (_, res) => {
+    try {
+        const users = await User.findAll()
+    
+        return res.status(200).send(users)
+        
+    } catch (error) {
+        return res.status(500).send(error)
+    }
+}
+
 export const findOne = async (req, res) => {
     const userId = req.userId
 
@@ -7,17 +18,6 @@ export const findOne = async (req, res) => {
         const user = await User.findOne({where: {id: userId}})
     
         return res.status(200).send(user)
-        
-    } catch (error) {
-        return res.status(500).send(error)
-    }
-}
-
-export const findAll = async (_, res) => {
-    try {
-        const users = await User.findAll()
-    
-        return res.status(200).send(users)
         
     } catch (error) {
         return res.status(500).send(error)
