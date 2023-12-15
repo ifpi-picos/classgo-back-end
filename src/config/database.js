@@ -21,6 +21,7 @@ database
     .authenticate()
     .then(() => {
         console.log("Conexão realizada com sucesso!")
+        database.sync()
     })
     .catch(err => {
         console.error("Erro:", err)

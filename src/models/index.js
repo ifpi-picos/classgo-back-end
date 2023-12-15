@@ -78,14 +78,14 @@ export const Lesson = database.define("Lesson", {
         primaryKey: true
     },
 
-    date: {
-        type: DataTypes.DATE,
+    description: {
+        type: DataTypes.STRING,
         allowNull: false,
         validate: {notEmpty: true}
     },
 
-    description: {
-        type: DataTypes.STRING,
+    date: {
+        type: DataTypes.DATE,
         allowNull: false,
         validate: {notEmpty: true}
     },
