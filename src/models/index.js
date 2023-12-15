@@ -74,7 +74,7 @@ export const Class = database.define("Class", {
 export const Lesson = database.define("Lesson", {
     id: {
         type: DataTypes.INTEGER,
-        autoIncremnet: true,
+        autoIncrement: true,
         primaryKey: true
     },
 
@@ -106,7 +106,7 @@ export const Lesson = database.define("Lesson", {
 export const Student = database.define("Student", {
     id: {
         type: DataTypes.INTEGER,
-        autoIncremnet: true,
+        autoIncrement: true,
         primaryKey: true
     },
 
