@@ -7,6 +7,6 @@ const lessonRouter = Router()
 lessonRouter.post("/create", verifyToken, create)
 lessonRouter.get("/all/:classId", verifyToken, findAll)
 lessonRouter.get("/one/:id", verifyToken, findOne)
-lessonRouter.patch("/update/:id", verifyToken, update)
+lessonRouter.put("/update/:id", verifyToken, update)
 
 export default lessonRouter
