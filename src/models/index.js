@@ -85,7 +85,7 @@ export const Lesson = database.define("Lesson", {
     },
 
     date: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: false,
         validate: {notEmpty: true}
     },
