@@ -4,9 +4,9 @@ import verifyToken from "../middlewares/auth.js"
 
 const userRouter = Router()
 
-userRouter.get("/one", verifyToken, findOne)
-userRouter.get("/all", verifyToken, findAll)
+userRouter.get("/findAll", verifyToken, findAll)
+userRouter.get("/findOne", verifyToken, findOne)
 userRouter.put("/update/:id", verifyToken, update)
-userRouter.delete("/delete/:id", verifyToken, destroy)
+userRouter.delete("/destroy/:id", verifyToken, destroy)
 
 export default userRouter

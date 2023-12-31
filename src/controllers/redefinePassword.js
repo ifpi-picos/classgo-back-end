@@ -1,5 +1,5 @@
 import { hash } from "bcrypt"
-import { User } from "../models/index.js"
+import User from "../models/users.js"
 
 const redefinePassword = async (req, res) => {
     const {id} = req.params

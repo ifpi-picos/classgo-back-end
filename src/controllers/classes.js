@@ -1,4 +1,7 @@
-import { Class, Lesson } from "../models/index.js"
+import ClassRegister from "../models/classRegister.js"
+import Class from "../models/classes.js"
+import Lesson from "../models/lessons.js"
+import Student from "../models/students.js"
 
 export const create = async (req, res) => {
     const userId = req.userId
@@ -88,7 +91,9 @@ export const destroy = async (req, res) => {
     const id = req.params.id
 
     try {
+        await ClassRegister.destroy({where: {classId: id}})
         await Lesson.destroy({where: {classId: id}})
+        await Student.destroy({where: {classId: id}})
         await Class.destroy({where: {id: id}})
     
         return res.status(200).send("Turma excluida com sucesso!")

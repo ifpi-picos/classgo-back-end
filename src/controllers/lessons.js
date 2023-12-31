@@ -1,4 +1,4 @@
-import { Lesson } from "../models/index.js"
+import Lesson from "../models/lessons.js"
 
 export const create = async (req, res) => {
     const {description, date, classId} = req.body
