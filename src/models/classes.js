@@ -14,7 +14,13 @@ const Class = database.define("Class", {
         validate: {notEmpty: true}
     },
 
-    studentsCapacity: {
+    totalNumberOfLessons: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {notEmpty: true}
+    },
+
+    totalNumberOfStudents: {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {notEmpty: true}

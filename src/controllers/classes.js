@@ -5,15 +5,19 @@ import Student from "../models/students.js"
 
 export const create = async (req, res) => {
     const userId = req.userId
-    const {description, totalLessons} = req.body
+    const {description, totalNumberOfLessons, totalNumberOfStudents} = req.body
 
     try {
         if (!description) {
             return res.status(400).send("Campo nome da turma obrigatório!")
         }
 
-        else if (!totalLessons) {
+        else if (!totalNumberOfLessons) {
             return res.status(400).send("Campo total de aulas obrigatório!")
+        }
+
+        else if (!totalNumberOfStudents) {
+            return res.status(400).send("Campo total de alunos obrigatório!")
         }
 
         const dbClasse = await Class.findOne({where: {description: description, userId: userId}})
@@ -22,7 +26,7 @@ export const create = async (req, res) => {
             return res.status(400).send("Turma já criada!")
         }
     
-        await Class.create({description, totalLessons, userId})
+        await Class.create({description, totalNumberOfLessons, totalNumberOfStudents, userId})
     
         return res.status(201).send("Turma criada com sucesso!")
         
@@ -61,15 +65,19 @@ export const findOne = async (req, res) => {
 export const update = async (req, res) => {
     const id = req.params.id
     const userId = req.userId
-    const {description, totalLessons} = req.body
+    const {description, totalNumberOfLessons, totalNumberOfStudents} = req.body
 
     try {
         if (!description) {
-            return res.status(400).send("Campo nome da turma obrigatório")
+            return res.status(400).send("Campo nome da turma obrigatório!")
         }
 
-        else if (!description) {
-            return res.status(400).send("Campo total de aulas obrigatório")
+        else if (!totalNumberOfLessons) {
+            return res.status(400).send("Campo total de aulas obrigatório!")
+        }
+
+        else if (!totalNumberOfStudents) {
+            return res.status(400).send("Campo total de alunos obrigatório!")
         }
 
         const dbClasse = await Class.findOne({where: {description: description, userId: userId}})
@@ -78,7 +86,7 @@ export const update = async (req, res) => {
             return res.status(400).send("Turma já criada!")
         }
     
-        await Class.update({description: description, totalLessons: totalLessons}, {where: {id: id}})
+        await Class.update({description: description, totalNumberOfLessons: totalNumberOfLessons, totalNumberOfStudents: totalNumberOfStudents}, {where: {id: id}})
     
         return res.status(200).send("Turma editada com sucesso!")
         

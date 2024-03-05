@@ -1,14 +1,14 @@
 import Student from "../models/students.js"
 
 export const create = async (req, res) => {
-    const {name, numberAbsences, classId} = req.body
+    const {name, numberOfAbsences, classId} = req.body
 
     try {
         if (!name) {
             return res.status(400).send("Campo nome do aluno obrigátorio!")
         }
 
-        await Student.create({name, numberAbsences, classId})
+        await Student.create({name, numberOfAbsences, classId})
 
         return res.status(201).send("Aluno adicionado com sucesso!")
 
@@ -45,14 +45,14 @@ export const findOne = async (req, res) => {
 
 export const update = async (req, res) => {
     const id = req.params.id
-    const {name, numberAbsences} = req.body
+    const {name, numberOfAbsences} = req.body
 
     try {
         if (!name) {
             return res.status(400).send("Campo nome do aluno obrigatório!")
         }
 
-        await Student.update({name, numberAbsences}, {where: {id: id}})
+        await Student.update({name, numberOfAbsences}, {where: {id: id}})
 
         return res.status(200).send("Aluno atualizado com sucesso!")
         
