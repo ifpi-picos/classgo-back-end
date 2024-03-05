@@ -1,9 +1,13 @@
 import { Router } from "express"
-import {destroy, findAll, findOne, update} from "../controllers/users.js"
+import {destroy, findAll, findOne, redefinePassword, requestNewPassword, signIn, signUp, update} from "../controllers/users.js"
 import verifyToken from "../middlewares/auth.js"
 
 const userRouter = Router()
 
+userRouter.post("/signup", signUp)
+userRouter.post("/signup", signIn)
+userRouter.post("/forgotpassword", requestNewPassword)
+userRouter.post("/redefinepassword", redefinePassword)
 userRouter.get("/findAll", verifyToken, findAll)
 userRouter.get("/findOne", verifyToken, findOne)
 userRouter.put("/update/:id", verifyToken, update)

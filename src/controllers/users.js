@@ -1,4 +1,158 @@
+import { createTransport } from "nodemailer"
+import { hash, compare } from "bcrypt"
+import jwt from "jsonwebtoken"
 import User from "../models/users.js"
+
+export const signUp = async (req, res) => {
+    const {name, email, type, password, confirmPassword} = req.body
+
+    try {
+        if (!name) {
+            return res.status(400).send("Campo nome obrigatório!")
+        }
+    
+        else if (!email) {
+            return res.status(400).send("Campo email obrigatório!")
+        }
+    
+        else if (!password) {
+            return res.status(400).send("Campo senha obrigatório!")
+        }
+    
+        else if (!confirmPassword) {
+            return res.status(400).send("Campo confirmar senha obrigatório!")
+        }
+    
+        else if (password != confirmPassword) {
+            return res.status(400).send("Campos senha e confirmar senha distintos!")
+        }
+    
+        const dbEmail = await User.findOne({where: {email: email}})
+    
+        if (dbEmail) {
+            return res.status(400).send("Usuário já cadastrado!")
+        }
+    
+        const dbPassword = await hash(password, 8)
+    
+        await User.create({name, email, type, password: dbPassword})
+    
+        return res.status(201).send("Usuário cadastrado com sucesso!")
+       
+    } catch (error) {
+        return res.status(500).send(error)
+    }
+}
+
+export const signIn = async (req, res) => {
+    const {email, password} = req.body
+
+    try {
+        if (!email) {
+            return res.status(400).send("Campo email obrigatório!")
+        }
+        
+        else if (!password) {
+            return res.status(400).send("Campo senha obrigatório!")
+        }
+        
+        const user = await User.findOne({where: {email: email}})
+    
+        if (!user) {
+            return res.status(400).send("Usuário não cadastrado!")
+        }
+    
+        const isMatch = await compare(password, user.password)
+    
+        if (!isMatch) {
+            return res.status(400).send("Senha inválida!")
+        }
+    
+        const token = jwt.sign({userId: user.id}, process.env.JWT_SECRET, {expiresIn: "1d"})
+    
+        return res.status(200).send({token: token, userType: user.type})
+        
+    } catch (error) {
+        res.status(500).send(error)
+    }   
+}
+
+export const requestNewPassword = async (req, res) => {
+    const {email} = req.body
+
+    try {
+        if (!email) {
+            return res.status(400).send("Campo email obrigatório!")
+        }
+    
+        const user = await User.findOne({where: {email: email}})
+    
+        if (!user) {
+            return res.status(400).send("Usuário não cadastrado!")
+        }
+    
+        const token = jwt.sign({userId: user.id}, process.env.JWT_SECRET, {expiresIn: 120})
+    
+        const message = "Pedido de solicitação enviado para seu email!"
+    
+        const transport = createTransport({
+            host: "smtp.gmail.com",
+            port: 465,
+            secure: true,
+            auth: {user: "landeilsonveloso2022@gmail.com", pass: "imxmecmisjczdtkp"}
+        })
+    
+        const mailOptions = {
+            from: "Landeilson Veloso <landeilsonveloso2022@egmail.com>",
+            to: `${user.email}`,
+            subject: "Solicitação de Alteração de Senha",
+            html: `
+                    <h1>
+                        Olá, ${user.name}! Tudo bem?
+                    <h1/>
+    
+                    <p>
+                        Acesse o link para alterar sua senha: <a href="https://reverse-time-front-end.vercel.app/redefinepassword">Alterar Senha<a/>
+                    <p/>
+                `
+        }
+    
+        await transport.sendMail(mailOptions)
+    
+        return res.status(200).send({token: token, message: message})
+        
+    } catch (error) {
+        return res.status(500).send(error)
+    }
+}
+
+export const redefinePassword = async (req, res) => {
+    const {id} = req.params
+    const {newPassword, confirmNewPassword} = req.body
+
+    try {
+        if (!newPassword) {
+            return res.status(400).send("Campo senha atual obrigatório!")
+        }
+        
+        else if (!confirmNewPassword) {
+            return res.status(400).send("Campo nova senha obrigatório!")
+        }
+    
+        else if (newPassword != confirmNewPassword) {
+            return res.status(400).send("Campos nova senha e confirmar nova senha distintos!")
+        }
+    
+        const dbPassword = await hash(newPassword, 8)
+    
+        await User.update({password: dbPassword}, {where: {id: id}})
+    
+        return res.status(200).send("Senha redefinida com sucesso!")
+        
+    } catch (error) {
+        return res.status(500).send(error)
+    }    
+}
 
 export const findAll = async (_, res) => {
     try {
