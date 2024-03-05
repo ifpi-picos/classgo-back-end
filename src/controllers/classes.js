@@ -1,6 +1,6 @@
-import ClassRegister from "../models/classRegister.js"
 import Class from "../models/classes.js"
 import Lesson from "../models/lessons.js"
+import Register from "../models/registers.js"
 import Student from "../models/students.js"
 
 export const create = async (req, res) => {
@@ -91,7 +91,7 @@ export const destroy = async (req, res) => {
     const id = req.params.id
 
     try {
-        await ClassRegister.destroy({where: {classId: id}})
+        await Register.destroy({where: {classId: id}})
         await Lesson.destroy({where: {classId: id}})
         await Student.destroy({where: {classId: id}})
         await Class.destroy({where: {id: id}})
