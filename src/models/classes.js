@@ -14,13 +14,17 @@ const Class = database.define("Class", {
         validate: {notEmpty: true}
     },
 
-    studentsCapacity: {},
+    studentsCapacity: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {notEmpty: true}
+    },
 
-    teacherId: {
+    userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {notEmpty: true},
-        references: {model: "teachers", key: "id"}
+        references: {model: "users", key: "id"}
     }
 }, 
 
