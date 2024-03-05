@@ -112,7 +112,7 @@ export const requestNewPassword = async (req, res) => {
                     <h1/>
     
                     <p>
-                        Acesse o link para alterar sua senha: <a href="https://reverse-time-front-end.vercel.app/redefinepassword">Alterar Senha<a/>
+                        Acesse o link para alterar sua senha: <a href="https://reverse-time-front-end.vercel.app/users/redefinepassword">Alterar Senha<a/>
                     <p/>
                 `
         }
