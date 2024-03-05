@@ -8,6 +8,13 @@ const ClassRegister = database.define("ClassRegister", {
         primaryKey: true
     },
 
+    classId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {notEmpty: true},
+        references: {model: "classes", key: "id"}
+    },
+
     lessonId: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -21,17 +28,11 @@ const ClassRegister = database.define("ClassRegister", {
         validate: {notEmpty: true},
         references: {model: "students", key: "id"}
     },
-
-    classId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        validate: {notEmpty: true},
-        references: {model: "classes", key: "id"}
-    }
 }, 
 
-{
-    tableName: "class_register"
-})
+    {
+        tableName: "classRegister"
+    }
+)
 
 export default ClassRegister
