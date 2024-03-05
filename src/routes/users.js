@@ -5,7 +5,7 @@ import verifyToken from "../middlewares/auth.js"
 const userRouter = Router()
 
 userRouter.post("/signup", signUp)
-userRouter.post("/signup", signIn)
+userRouter.post("/signin", signIn)
 userRouter.post("/forgotpassword", requestNewPassword)
 userRouter.post("/redefinepassword", redefinePassword)
 userRouter.get("/findAll", verifyToken, findAll)
