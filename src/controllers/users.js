@@ -90,6 +90,8 @@ export const requestNewPassword = async (req, res) => {
         if (!user) {
             return res.status(400).send("Usuário não cadastrado!")
         }
+
+        const pass = process.env.APP_PASSWORD
     
         const token = jwt.sign({userId: user.id}, process.env.JWT_SECRET, {expiresIn: 120})
     
@@ -99,7 +101,7 @@ export const requestNewPassword = async (req, res) => {
             host: "smtp.gmail.com",
             port: 465,
             secure: true,
-            auth: {user: "idcursoproject@gmail.com", pass: "ashydmrulxlsfdhr"}
+            auth: {user: "idcursoproject@gmail.com", pass: `${pass}`}
         })
 
         const mailOptions = {
