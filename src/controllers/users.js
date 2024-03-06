@@ -99,7 +99,7 @@ export const requestNewPassword = async (req, res) => {
             host: "smtp.gmail.com",
             port: 465,
             secure: true,
-            auth: {user: "idcursoproject@gmail.com", pass: "rbtofnzeysooeskfx_"}
+            auth: {user: "idcursoproject@gmail.com", pass: "ashydmrulxlsfdhr"}
         })
     
         const mailOptions = {
