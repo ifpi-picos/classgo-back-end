@@ -103,7 +103,7 @@ export const requestNewPassword = async (req, res) => {
         })
     
         const mailOptions = {
-            from: "idCurso <idcursoproject@egmail.com>",
+            from: "idCurso <idcursoproject@gmail.com>",
             to: `${user.email}`,
             subject: "Solicitação de Alteração de Senha",
             html: `
