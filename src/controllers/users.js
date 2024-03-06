@@ -99,11 +99,11 @@ export const requestNewPassword = async (req, res) => {
             host: "smtp.gmail.com",
             port: 465,
             secure: true,
-            auth: {user: "idcursoproject@gmail.com", pass: "idcurso2024@"}
+            auth: {user: "landeilsonveloso2022@gmail.com", pass: "imxmecmisjczdtkp"}
         })
     
         const mailOptions = {
-            from: "idCurso <idcursoproject@gmail.com>",
+            from: "Landeilson Veloso <landeilsonveloso2022@gmail.com>",
             to: `${user.email}`,
             subject: "Solicitação de Alteração de Senha",
             html: `
@@ -112,7 +112,7 @@ export const requestNewPassword = async (req, res) => {
                     <h1/>
     
                     <p>
-                        Acesse o link para alterar sua senha: <a href="https://reverse-time-front-end.vercel.app/users/redefinepassword">Alterar Senha<a/>
+                        Acesse o link para alterar sua senha: <a href="https://idcurso.vercel.app/redefinepassword">Alterar Senha<a/>
                     <p/>
                 `
         }
