@@ -118,7 +118,7 @@ export const requestNewPassword = async (req, res) => {
                     <p/>
     
                     <p>
-                        Acesse o link para alterar sua senha: <a href="https://idcurso.vercel.app/redefinepassword">Alterar Senha<a/>
+                        Acesse o link para alterar sua senha: <a href="https://idcurso.vercel.app/redefinepassword/${user.id}">Alterar Senha<a/>
                     <p/>
                 `
         }
