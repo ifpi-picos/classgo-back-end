@@ -99,11 +99,11 @@ export const requestNewPassword = async (req, res) => {
             host: "smtp.gmail.com",
             port: 465,
             secure: true,
-            auth: {user: "landeilsonveloso2022@gmail.com", pass: "landeilson2022@"}
+            auth: {user: "idcursoproject@gmail.com", pass: "idcurso2024@"}
         })
     
         const mailOptions = {
-            from: "Landeilson Veloso <landeilsonveloso2022@gmail.com>",
+            from: "idCurso <idcursoproject@gmail.com>",
             to: `${user.email}`,
             subject: "Solicitação de Alteração de Senha",
             html: `
