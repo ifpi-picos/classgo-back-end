@@ -99,17 +99,17 @@ export const requestNewPassword = async (req, res) => {
             host: "smtp.gmail.com",
             port: 465,
             secure: true,
-            auth: {user: "idcursoproject@gmail.com", pass: "ashydmrulxlsfdhr"}
+            auth: {user: "idcursoproject@gmail.com", pass: process.env.APP_PASSWORD}
         })
-    
+
         const mailOptions = {
             from: "idCurso <idcursoproject@gmail.com>",
             to: `${user.email}`,
             subject: "Solicitação de Alteração de Senha",
             html: `
-                    <h1>
+                    <h3>
                         Olá, ${user.name}! Tudo bem?
-                    <h1/>
+                    <h3/>
     
                     <p>
                         Acesse o link para alterar sua senha: <a href="https://idcurso.vercel.app/redefinepassword">Alterar Senha<a/>
