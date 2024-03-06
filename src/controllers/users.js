@@ -110,7 +110,11 @@ export const requestNewPassword = async (req, res) => {
             subject: "Solicitação de Alteração de Senha",
             html: `
                     <p>
-                        Olá, ${user.name}!
+                        <b>Olá, ${user.name}!<b/>
+                    <p/>
+
+                    <p>
+                        <b>Obs:<b/> Use o mesmo navegador e dispositivo do pedido de solicitação para alterar sua senha
                     <p/>
     
                     <p>
