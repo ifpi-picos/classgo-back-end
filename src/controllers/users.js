@@ -109,9 +109,9 @@ export const requestNewPassword = async (req, res) => {
             to: `${user.email}`,
             subject: "Solicitação de Alteração de Senha",
             html: `
-                    <h3>
-                        Olá, ${user.name}! Tudo bem?
-                    <h3/>
+                    <p>
+                        Olá, ${user.name}!
+                    <p/>
     
                     <p>
                         Acesse o link para alterar sua senha: <a href="https://idcurso.vercel.app/redefinepassword">Alterar Senha<a/>
