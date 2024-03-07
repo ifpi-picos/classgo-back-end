@@ -93,7 +93,7 @@ export const forgotPassword = async (req, res) => {
 
         const pass = process.env.APP_PASSWORD
     
-        const token = jwt.sign({userId: user.id}, process.env.JWT_SECRET, {expiresIn: 120})
+        const token = jwt.sign({userId: user.id}, process.env.JWT_SECRET, {expiresIn: 600})
     
         const message = "Pedido de solicitação enviado para seu email!"
     
