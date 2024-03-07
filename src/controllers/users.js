@@ -77,7 +77,7 @@ export const signIn = async (req, res) => {
     }   
 }
 
-export const requestNewPassword = async (req, res) => {
+export const forgotPassword = async (req, res) => {
     const {email} = req.body
 
     try {
@@ -111,10 +111,6 @@ export const requestNewPassword = async (req, res) => {
             html: `
                     <p>
                         Olá, ${user.name}!
-                    <p/>
-
-                    <p>
-                        Obs: Use o mesmo navegador e dispositivo do pedido de solicitação para alterar sua senha
                     <p/>
     
                     <p>
