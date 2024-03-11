@@ -196,7 +196,8 @@ export const update = async (req, res) => {
         const user = await User.findOne({where: {email: email}})
     
         if (user && id !== user.id) {
-            return res.status(400).send("Usuário já cadastrado!", user, id, user.id)
+            console.log(user, id, user.id)
+            return res.status(400).send("Usuário já cadastrado!")
         }
     
         await User.update({name: name, email: email}, {where: {id: id}})
