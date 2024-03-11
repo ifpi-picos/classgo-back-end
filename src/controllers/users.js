@@ -192,14 +192,16 @@ export const update = async (req, res) => {
         else if (!email) {
             return res.status(400).send("Campo email obrigatório!")
         }
+
+        //const dbId = await User.findOne({where: {id: id}})
     
-        const dbEmail = await User.findOne({where: {email: email}})
+        const user = await User.findOne({where: {email: email}})
     
-        if (dbEmail) {
+        if (user && id !== user.id) {
             return res.status(400).send("Usuário já cadastrado!")
         }
     
-        const user = await User.update({name: name, email: email}, {where: {id: id}})
+        await User.update({name: name, email: email}, {where: {id: id}})
     
         return res.status(200).send("Usuário atualizado com sucesso!")
         
