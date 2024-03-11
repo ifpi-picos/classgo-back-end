@@ -195,9 +195,7 @@ export const update = async (req, res) => {
     
         const user = await User.findOne({where: {email: email}})
 
-        console.log(typeof(id), typeof(user.id))
-
-        if (id !== user.id) {
+        if (user && id != user.id) {
             return res.status(400).send("Usuário já cadastrado!")
         }
 
