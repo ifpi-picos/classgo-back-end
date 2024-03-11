@@ -12,6 +12,12 @@ export const create = async (req, res) => {
             return res.status(400).send("Campo data da aula obrigatório!")
         }
 
+        const lesson = await Lesson.findOne({where: {description: description, classId: classId}})
+
+        if (lesson) {
+            return res.status(400).send("Aula já registrada!")
+        }
+
         await Lesson.create({description, date, classId})
 
         return res.status(201).send("Aula registrada com sucesso!")
@@ -49,7 +55,7 @@ export const findOne = async (req, res) => {
 
 export const update = async (req, res) => {
     const id = req.params.id
-    const {description, date} = req.body
+    const {description, date, classId} = req.body
 
     try {
         if (!description) {
@@ -58,6 +64,12 @@ export const update = async (req, res) => {
 
         else if (!date) {
             return res.status(400).send("Campo data da aula obrigatório!")
+        }
+
+        const lesson = Lesson.findOne({where: {description: description, classId: classId}})
+
+        if (lesson && id != lesson.id) {
+            return res.status(400).send("Aula já registrada!")
         }
 
         await Lesson.update({description, date}, {where: {id: id}})

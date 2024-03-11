@@ -8,6 +8,12 @@ export const create = async (req, res) => {
             return res.status(400).send("Campo nome do aluno obrigátorio!")
         }
 
+        const student = await Student.findOne({where: {name: name}})
+
+        if (student) {
+            return res.status(400).send("Aluno já adicionado!")
+        }
+
         await Student.create({name, numberOfAbsences, classId})
 
         return res.status(201).send("Aluno adicionado com sucesso!")
@@ -45,11 +51,17 @@ export const findOne = async (req, res) => {
 
 export const update = async (req, res) => {
     const id = req.params.id
-    const {name, numberOfAbsences} = req.body
+    const {name, numberOfAbsences, classId} = req.body
 
     try {
         if (!name) {
             return res.status(400).send("Campo nome do aluno obrigatório!")
+        }
+
+        const student = Student.findOne({where: {name: name, classId: classId}})
+
+        if (student && id != student.id) {
+            return res.status(400).send("Aluno já adicionado!")
         }
 
         await Student.update({name, numberOfAbsences}, {where: {id: id}})

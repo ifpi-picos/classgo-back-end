@@ -20,9 +20,9 @@ export const create = async (req, res) => {
             return res.status(400).send("Campo total de alunos obrigatório!")
         }
 
-        const dbClasse = await Class.findOne({where: {description: description, userId: userId}})
+        const myClass = await Class.findOne({where: {description: description, userId: userId}})
 
-        if (dbClasse) {
+        if (myClass) {
             return res.status(400).send("Turma já criada!")
         }
     
@@ -80,9 +80,9 @@ export const update = async (req, res) => {
             return res.status(400).send("Campo total de alunos obrigatório!")
         }
 
-        const dbClasse = await Class.findOne({where: {description: description, userId: userId}})
+        const myClass = await Class.findOne({where: {description: description, userId: userId}})
 
-        if (dbClasse) {
+        if (myClass && id != myClass.id) {
             return res.status(400).send("Turma já criada!")
         }
     

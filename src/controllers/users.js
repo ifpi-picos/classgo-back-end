@@ -27,9 +27,9 @@ export const signUp = async (req, res) => {
             return res.status(400).send("Campos senha e confirmar senha distintos!")
         }
     
-        const dbEmail = await User.findOne({where: {email: email}})
+        const user = await User.findOne({where: {email: email}})
     
-        if (dbEmail) {
+        if (user) {
             return res.status(400).send("Usuário já cadastrado!")
         }
     
