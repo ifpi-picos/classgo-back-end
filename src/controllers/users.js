@@ -195,15 +195,13 @@ export const update = async (req, res) => {
     
         const user = await User.findOne({where: {email: email}})
 
-        if (user) {
-            if (id !== user.id) {
-                return res.status(400).send("Usuário já cadastrado!")
-            }
-
-            await User.update({name: name, email: email}, {where: {id: id}})
-        
-            return res.status(200).send("Usuário atualizado com sucesso!")
+        if (id !== user.id) {
+            return res.status(400).send("Usuário já cadastrado!")
         }
+
+        await User.update({name: name, email: email}, {where: {id: id}})
+        
+        return res.status(200).send("Usuário atualizado com sucesso!")
         
     } catch (error) {
         return res.status(500).send(error)
