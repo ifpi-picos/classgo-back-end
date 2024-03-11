@@ -66,7 +66,7 @@ export const update = async (req, res) => {
             return res.status(400).send("Campo data da aula obrigatório!")
         }
 
-        const lesson = Lesson.findOne({where: {description: description, classId: classId}})
+        const lesson = await Lesson.findOne({where: {description: description, classId: classId}})
 
         if (lesson && id != lesson.id) {
             return res.status(400).send("Aula já registrada!")

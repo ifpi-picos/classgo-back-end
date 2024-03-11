@@ -58,7 +58,7 @@ export const update = async (req, res) => {
             return res.status(400).send("Campo nome do aluno obrigatório!")
         }
 
-        const student = Student.findOne({where: {name: name, classId: classId}})
+        const student = await Student.findOne({where: {name: name, classId: classId}})
 
         if (student && id != student.id) {
             return res.status(400).send("Aluno já adicionado!")
