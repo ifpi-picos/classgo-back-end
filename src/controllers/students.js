@@ -78,6 +78,8 @@ export const destroy = async (req, res) => {
 
     try {
         await Student.destroy({where: {id: id}})
+
+        return res.status(200).send("Aluno excluido com sucesso!")
         
     } catch (error) {
         return res.status(500).send(error)
