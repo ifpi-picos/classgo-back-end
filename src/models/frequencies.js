@@ -1,18 +1,24 @@
 import database from "../config/database.js"
 import { DataTypes } from "sequelize"
 
-const Register = database.define("Register", {
+const Frequency = database.define("Frequency", {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true
     },
 
-    classId: {
+    studentId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {notEmpty: true},
-        references: {model: "classes", key: "id"}
+        references: {model: "students", key: "id"}
+    },
+
+    presence: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        validate: {notEmpty: true}
     },
 
     lessonId: {
@@ -22,17 +28,17 @@ const Register = database.define("Register", {
         references: {model: "lessons", key: "id"}
     },
 
-    studentId: {
+    classId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {notEmpty: true},
-        references: {model: "students", key: "id"}
-    },
+        references: {model: "classes", key: "id"}
+    }
 }, 
 
     {
-        tableName: "registers"
+        tableName: "frequencies"
     }
 )
 
-export default Register
+export default Frequency
