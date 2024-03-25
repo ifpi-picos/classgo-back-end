@@ -55,9 +55,8 @@ export const findOne = async (req, res) => {
 
     try {
         const lesson = await Lesson.findOne({where: {id: id}})
-        const frequency = await Frequency.findAll({where: {lessonId: id}})
 
-        return res.status(200).send(lesson, frequency)
+        return res.status(200).send(lesson)
         
     } catch (error) {
         return res.status(500).send(error)
