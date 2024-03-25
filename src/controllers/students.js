@@ -8,7 +8,7 @@ export const create = async (req, res) => {
             return res.status(400).send("Campo nome do aluno obrigátorio!")
         }
 
-        const student = await Student.findOne({where: {name: name}})
+        const student = await Student.findOne({where: {name: name, classId: classId}})
 
         if (student) {
             return res.status(400).send("Aluno já adicionado!")
