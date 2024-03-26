@@ -1,7 +1,7 @@
 import Frequency from "../models/frequencies.js"
 
 export const findAll = async (req, res) => {
-    const lessonId = req.params.id
+    const lessonId = req.params.lessonIdd
 
     try {
         const frequency = await Frequency.findAll({where: {lessonId: lessonId}})
