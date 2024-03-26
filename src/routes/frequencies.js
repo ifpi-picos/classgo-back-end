@@ -4,6 +4,6 @@ import verifyToken from "../middlewares/auth.js"
 
 const frequencyRouter = Router()
 
-frequencyRouter.use("/findAll", verifyToken, findAll)
+frequencyRouter.use("/findAll/:id", verifyToken, findAll)
 
 export default frequencyRouter
