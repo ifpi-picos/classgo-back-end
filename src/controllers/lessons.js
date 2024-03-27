@@ -1,4 +1,3 @@
-import Frequency from "../models/frequencies.js"
 import Lesson from "../models/lessons.js"
 
 export const create = async (req, res) => {
@@ -74,17 +73,6 @@ export const update = async (req, res) => {
         }
 
         await Lesson.update({description, date}, {where: {id: id}})
-
-        const dbFrequencies = await Frequency.findAll({where: {lessonId: id}})
-
-        for (let index = 0; index < dbFrequencies.length; index++) {
-            const studentId = frequencies[index].studentId
-            const presence = frequencies[index].presence
-
-            await Frequency.update({presence}, {where: {studentId: studentId}})
-        }
-
-        return res.status(200).send("Aula atualizada com sucesso!")
         
     } catch (error) {
         return res.status(500).send(error)
