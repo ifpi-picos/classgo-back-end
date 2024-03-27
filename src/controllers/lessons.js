@@ -65,7 +65,7 @@ export const findOne = async (req, res) => {
 
 export const update = async (req, res) => {
     const id = req.params.id
-    const {description, date, classId, studentsId, presencies} = req.body
+    const {description, date, classId, frequencies} = req.body
 
     try {
         if (!description) {
@@ -84,11 +84,11 @@ export const update = async (req, res) => {
 
         await Lesson.update({description, date}, {where: {id: id}})
 
-        const frequencies = await Frequency.findAll({where: {id: id}})
+        const dbFrequencies = await Frequency.findAll({where: {lessonId: id}})
 
-        for (let index = 0; index < frequencies.length; index++) {
-            const studentId = studentsId[index]
-            const presence = presencies[index]
+        for (let index = 0; index < dbFrequencies.length; index++) {
+            const studentId = frequencies[index].studentId
+            const presence = frequencies[index].presence
 
             await Frequency.update({presence}, {where: {studentId: studentId}})
         }
