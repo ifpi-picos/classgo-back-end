@@ -2,7 +2,7 @@ import Frequency from "../models/frequencies.js"
 import Lesson from "../models/lessons.js"
 
 export const create = async (req, res) => {
-    const {description, date, classId, studentsId, presencies} = req.body
+    const {description, date, classId} = req.body
 
     try {
         if (!description) {
@@ -18,17 +18,8 @@ export const create = async (req, res) => {
         if (lesson) {
             return res.status(400).send("Aula já registrada!")
         }
-
-        const newLesson = await Lesson.create({description, date, classId})
-
-        const lessonId = newLesson.id
-
-        for (let index = 0; index < studentsId.length; index++) {
-            const studentId = studentsId[index]
-            const presence = presencies[index]
-
-            await Frequency.create({studentId, presence, lessonId, classId})
-        }
+        
+        await Lesson.create({description, date, classId})
 
         return res.status(201).send("Aula registrada com sucesso!")
 
@@ -65,7 +56,7 @@ export const findOne = async (req, res) => {
 
 export const update = async (req, res) => {
     const id = req.params.id
-    const {description, date, classId, frequencies} = req.body
+    const {description, date, classId} = req.body
 
     try {
         if (!description) {
