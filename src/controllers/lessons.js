@@ -1,7 +1,8 @@
+import Frequency from "../models/frequencies.js"
 import Lesson from "../models/lessons.js"
 
 export const create = async (req, res) => {
-    const {description, date, classId} = req.body
+    const {description, date, classId, frequency} = req.body
 
     try {
         if (!description) {
@@ -18,7 +19,16 @@ export const create = async (req, res) => {
             return res.status(400).send("Aula já registrada!")
         }
         
-        await Lesson.create({description, date, classId})
+        const newLesson = await Lesson.create({description, date, classId})
+
+        const lessonId = newLesson.id
+
+        for (let index = 0; index < frequency.length; index++) {
+            const studentId = frequency[index].studentId
+            const presence = frequency[index].presence
+            
+            await Frequency.create({studentId, presence, lessonId, classId})
+        }
 
         return res.status(201).send("Aula registrada com sucesso!")
 
@@ -45,8 +55,9 @@ export const findOne = async (req, res) => {
 
     try {
         const lesson = await Lesson.findOne({where: {id: id}})
+        const frequency = await Frequency.findAll({where: {lessonId: id}})
 
-        return res.status(200).send(lesson)
+        return res.status(200).send(lesson, frequency)
         
     } catch (error) {
         return res.status(500).send(error)
@@ -55,7 +66,7 @@ export const findOne = async (req, res) => {
 
 export const update = async (req, res) => {
     const id = req.params.id
-    const {description, date, classId} = req.body
+    const {description, date, classId, frequency} = req.body
 
     try {
         if (!description) {
@@ -73,6 +84,15 @@ export const update = async (req, res) => {
         }
 
         await Lesson.update({description, date}, {where: {id: id}})
+
+        for (let index = 0; index < frequency.length; index++) {
+            const studentId = frequency[index].studentId
+            const presence = frequency[index].presence
+            
+            await Frequency.update({presence}, {where: {studentId: studentId, lessonId: id}})
+        }
+
+        return res.status(200).send("Aula atualizada com sucesso!")
         
     } catch (error) {
         return res.status(500).send(error)
