@@ -1,3 +1,4 @@
+import Frequency from "../models/frequencies.js"
 import Student from "../models/students.js"
 
 export const create = async (req, res) => {
@@ -77,6 +78,7 @@ export const destroy = async (req, res) => {
     const id = req.params.id
 
     try {
+        await Frequency.destroy({where: {studentId: id}})
         await Student.destroy({where: {id: id}})
 
         return res.status(200).send("Aluno excluido com sucesso!")
