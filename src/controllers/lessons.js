@@ -50,20 +50,6 @@ export const findAll = async (req, res) => {
     }
 }
 
-export const findOne = async (req, res) => {
-    const id = req.params.id
-
-    try {
-        const lesson = await Lesson.findOne({where: {id: id}})
-        const frequency = await Frequency.findAll({where: {lessonId: id}})
-
-        return res.status(200).send(lesson, frequency)
-        
-    } catch (error) {
-        return res.status(500).send(error)
-    }
-}
-
 export const update = async (req, res) => {
     const id = req.params.id
     const {description, date, classId, frequency} = req.body
