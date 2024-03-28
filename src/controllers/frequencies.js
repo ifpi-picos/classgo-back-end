@@ -1,14 +1,14 @@
 import Frequency from "../models/frequencies.js"
 
 export const create = async (req, res) => {
-    const {frequencies} = req.body
+    const {frequency} = req.body
 
     try {
-        for (let index = 0; index < frequencies.length; index++) {
-            const studentId = frequencies[index].studentId
-            const presence = frequencies[index].presence
-            const lessonId = frequencies[index].lessonId
-            const classId = frequencies[index].classId
+        for (let index = 0; index < frequency.length; index++) {
+            const studentId = frequency[index].studentId
+            const presence = frequency[index].presence
+            const lessonId = frequency[index].lessonId
+            const classId = frequency[index].classId
             
             await Frequency.create({studentId, presence, lessonId, classId})
         }
