@@ -13,7 +13,7 @@ export const create = async (req, res) => {
             return res.status(400).send("Campo data da aula obrigatório!")
         }
 
-        else if (!frequency) {
+        else if (frequency.length < 1) {
             return res.status(400).send("Preenchimneto da Frequência obrigatório!")
         }
 
@@ -67,7 +67,7 @@ export const update = async (req, res) => {
             return res.status(400).send("Campo data da aula obrigatório!")
         }
 
-        else if (!frequency) {
+        else if (frequency.length < 1) {
             return res.status(400).send("Preenchimneto da Frequência obrigatório!")
         }
 
