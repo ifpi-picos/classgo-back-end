@@ -14,7 +14,7 @@ export const create = async (req, res) => {
         }
 
         else if (frequency.length < 1) {
-            return res.status(400).send("Preenchimneto da Frequência obrigatório!")
+            return res.status(400).send("Campo frequência obrigatório!")
         }
 
         const lesson = await Lesson.findOne({where: {description: description, classId: classId}})
@@ -65,10 +65,6 @@ export const update = async (req, res) => {
 
         else if (!date) {
             return res.status(400).send("Campo data da aula obrigatório!")
-        }
-
-        else if (frequency.length < 1) {
-            return res.status(400).send("Preenchimneto da Frequência obrigatório!")
         }
 
         const lesson = await Lesson.findOne({where: {description: description, classId: classId}})
