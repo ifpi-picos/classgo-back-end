@@ -2,7 +2,7 @@ import Frequency from "../models/frequencies.js"
 import Lesson from "../models/lessons.js"
 
 export const create = async (req, res) => {
-    const {description, date, classId, frequency} = req.body
+    const {description, date, classId, frequencies} = req.body
 
     try {
         if (!description) {
@@ -13,7 +13,7 @@ export const create = async (req, res) => {
             return res.status(400).send("Campo data da aula obrigatório!")
         }
 
-        else if (frequency.length < 1) {
+        else if (frequencies.length < 1) {
             return res.status(400).send("Campo frequência obrigatório!")
         }
 
@@ -27,9 +27,9 @@ export const create = async (req, res) => {
 
         const lessonId = newLesson.id
 
-        for (let index = 0; index < frequency.length; index++) {
-            const studentId = frequency[index].studentId
-            const presence = frequency[index].presence
+        for (let index = 0; index < frequencies.length; index++) {
+            const studentId = frequencies[index].studentId
+            const presence = frequencies[index].presence
             
             await Frequency.create({studentId, presence, lessonId, classId})
         }
@@ -56,7 +56,7 @@ export const findAll = async (req, res) => {
 
 export const update = async (req, res) => {
     const id = req.params.id
-    const {description, date, classId, frequency} = req.body
+    const {description, date, classId, frequencies} = req.body
 
     try {
         if (!description) {
@@ -75,9 +75,9 @@ export const update = async (req, res) => {
 
         await Lesson.update({description, date}, {where: {id: id}})
 
-        for (let index = 0; index < frequency.length; index++) {
-            const studentId = frequency[index].studentId
-            const presence = frequency[index].presence
+        for (let index = 0; index < frequencies.length; index++) {
+            const studentId = frequencies[index].studentId
+            const presence = frequencies[index].presence
             
             await Frequency.update({presence}, {where: {studentId: studentId, lessonId: id}})
         }
