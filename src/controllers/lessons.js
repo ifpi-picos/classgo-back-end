@@ -1,5 +1,6 @@
 import Frequency from "../models/frequencies.js"
 import Lesson from "../models/lessons.js"
+import Student from "../models/students.js"
 
 export const create = async (req, res) => {
     const {description, date, classId, frequencies} = req.body
@@ -32,6 +33,10 @@ export const create = async (req, res) => {
             const presence = frequencies[index].presence
             
             await Frequency.create({studentId, presence, lessonId, classId})
+
+            if (!presence) {
+                await Student.update({numberOfAbsences: numberOfAbsences + 1}, {where: {id: studentId}})
+            }
         }
 
         return res.status(201).send("Aula registrada com sucesso!")
@@ -80,6 +85,10 @@ export const update = async (req, res) => {
             const presence = frequencies[index].presence
             
             await Frequency.update({presence}, {where: {studentId: studentId, lessonId: id}})
+
+            if (!presence) {
+                await Student.update({numberOfAbsences: numberOfAbsences + 1}, {where: {id: studentId}})
+            }
         }
 
         return res.status(200).send("Aula atualizada com sucesso!")
