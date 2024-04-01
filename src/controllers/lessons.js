@@ -37,9 +37,9 @@ export const create = async (req, res) => {
             if (presence) {
                 const student = await Student.findOne({where: {id: studentId}})
 
-                const newNumberOfpresencies = student.numberOfpresencies + 1
+                const newNumberOfPresencies = student.numberOfPresencies + 1
 
-                await Student.update({numberOfpresencies: newNumberOfpresencies}, {where: {id: studentId}})
+                await Student.update({numberOfPresencies: newNumberOfPresencies}, {where: {id: studentId}})
             }
         }
 
@@ -93,9 +93,9 @@ export const update = async (req, res) => {
             if (presence) {
                 const student = await Student.findOne({where: {id: studentId}})
                 
-                const newNumberOfpresencies = student.numberOfpresencies + 1
+                const newNumberOfPresencies = student.numberOfPresencies + 1
 
-                await Student.update({numberOfpresencies: newNumberOfpresencies}, {where: {id: studentId}})
+                await Student.update({numberOfPresencies: newNumberOfPresencies}, {where: {id: studentId}})
             }
         }
 

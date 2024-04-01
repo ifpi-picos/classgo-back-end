@@ -14,7 +14,7 @@ const Student = database.define("Student", {
         validate: {notEmpty: true}
     },
 
-    numberOfpresencies: {
+    numberOfPresencies: {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {notEmpty: true}
