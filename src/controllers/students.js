@@ -2,7 +2,7 @@ import Frequency from "../models/frequencies.js"
 import Student from "../models/students.js"
 
 export const create = async (req, res) => {
-    const {name, numberOfAbsences, classId} = req.body
+    const {name, numberOfpresencies, classId} = req.body
 
     try {
         if (!name) {
@@ -15,7 +15,7 @@ export const create = async (req, res) => {
             return res.status(400).send("Aluno já adicionado!")
         }
 
-        await Student.create({name, numberOfAbsences, classId})
+        await Student.create({name, numberOfpresencies, classId})
 
         return res.status(201).send("Aluno adicionado com sucesso!")
 
@@ -52,7 +52,7 @@ export const findOne = async (req, res) => {
 
 export const update = async (req, res) => {
     const id = req.params.id
-    const {name, numberOfAbsences, classId} = req.body
+    const {name, numberOfpresencies, classId} = req.body
 
     try {
         if (!name) {
@@ -65,7 +65,7 @@ export const update = async (req, res) => {
             return res.status(400).send("Aluno já adicionado!")
         }
 
-        await Student.update({name, numberOfAbsences}, {where: {id: id}})
+        await Student.update({name, numberOfpresencies}, {where: {id: id}})
 
         return res.status(200).send("Aluno atualizado com sucesso!")
         
