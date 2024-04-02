@@ -30,16 +30,20 @@ export const create = async (req, res) => {
 
         for (let index = 0; index < frequencies.length; index++) {
             const studentId = frequencies[index].studentId
+            console.log(studentId)
             const presence = frequencies[index].presence
+            console.log(presence)
             
             await Frequency.create({studentId, presence, lessonId, classId})
 
             if (presence === true) {
+                console.log(presence === true)
                 const student = await Student.findOne({where: {id: studentId}})
+                console.log(student)
 
                 const newNumberOfPresencies = student.numberOfPresencies + 1
 
-                await Student.update({numberOfPresencies: newNumberOfPresencies}, {where: {id: student.id}})
+                return await Student.update({numberOfPresencies: newNumberOfPresencies}, {where: {id: student.id}})
             }
         }
 
@@ -95,7 +99,7 @@ export const update = async (req, res) => {
                 
                 const newNumberOfPresencies = student.numberOfPresencies + 1
 
-                await Student.update({numberOfPresencies: newNumberOfPresencies}, {where: {id: student.id}})
+                return await Student.update({numberOfPresencies: newNumberOfPresencies}, {where: {id: student.id}})
             }
 
             else {
@@ -103,7 +107,7 @@ export const update = async (req, res) => {
                 
                 const newNumberOfPresencies = student.numberOfPresencies - 1
 
-                await Student.update({numberOfPresencies: newNumberOfPresencies}, {where: {id: student.id}})
+                return await Student.update({numberOfPresencies: newNumberOfPresencies}, {where: {id: student.id}})
             }
         }
 
