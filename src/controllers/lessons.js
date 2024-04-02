@@ -92,7 +92,7 @@ export const update = async (req, res) => {
             
             await Frequency.update({presence}, {where: {studentId: studentId, lessonId: id}})
 
-            if (presence && presence !== frequency.presence ) {
+            if (presence === true && presence !== frequency.presence) {
                 const student = await Student.findOne({where: {id: studentId}})
                 
                 const newNumberOfPresencies = student.numberOfPresencies + 1
@@ -100,7 +100,7 @@ export const update = async (req, res) => {
                 await Student.update({numberOfPresencies: newNumberOfPresencies}, {where: {id: studentId}})
             }
 
-            else {
+            else if (presence === false && presence !== frequency.presence) {
                 const student = await Student.findOne({where: {id: studentId}})
                 
                 const newNumberOfPresencies = student.numberOfPresencies - 1
