@@ -97,6 +97,14 @@ export const update = async (req, res) => {
 
                 await Student.update({numberOfPresencies: newNumberOfPresencies}, {where: {id: studentId}})
             }
+
+            else {
+                const student = await Student.findOne({where: {id: studentId}})
+                
+                const newNumberOfPresencies = student.numberOfPresencies - 1
+
+                await Student.update({numberOfPresencies: newNumberOfPresencies}, {where: {id: studentId}})
+            }
         }
 
         return res.status(200).send("Aula atualizada com sucesso!")
