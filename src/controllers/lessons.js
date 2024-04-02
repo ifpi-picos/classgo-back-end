@@ -30,18 +30,14 @@ export const create = async (req, res) => {
 
         for (let index = 0; index < frequencies.length; index++) {
             const studentId = frequencies[index].studentId
-            console.log(studentId)
             const presence = frequencies[index].presence
-            console.log(presence)
             
             await Frequency.create({studentId, presence, lessonId, classId})
 
             if (presence === true) {
                 const student = await Student.findOne({where: {id: studentId}})
-                console.log(student.numberOfPresencies, typeof(student.numberOfPresencies))
 
                 const newNumberOfPresencies = student.numberOfPresencies + 1
-                console.log(newNumberOfPresencies, typeof(newNumberOfPresencies))
 
                 await Student.update({numberOfPresencies: newNumberOfPresencies}, {where: {id: studentId}})
             }
@@ -91,10 +87,12 @@ export const update = async (req, res) => {
         for (let index = 0; index < frequencies.length; index++) {
             const studentId = frequencies[index].studentId
             const presence = frequencies[index].presence
+
+            const frequency = await Frequency.findOne({where: {studentId: studentId, lessonId: id}})
             
             await Frequency.update({presence}, {where: {studentId: studentId, lessonId: id}})
 
-            if (presence === true) {
+            if (presence && presence !== frequency.presence ) {
                 const student = await Student.findOne({where: {id: studentId}})
                 
                 const newNumberOfPresencies = student.numberOfPresencies + 1
