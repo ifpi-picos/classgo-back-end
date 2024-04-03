@@ -54,7 +54,7 @@ export const findAll = async (req, res) => {
     const classId = req.params.classId
 
     try {
-        const lessons = await Lesson.findAll({where: {classId: classId}})
+        const lessons = await Lesson.findAll({where: {classId: classId}}, {include: "Class"})
 
         return res.status(200).send(lessons)
         
