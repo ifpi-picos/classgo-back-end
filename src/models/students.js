@@ -11,26 +11,26 @@ const Student = database.define("Student", {
     name: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate: {notEmpty: true}
     },
 
-    numberOfPresencies: {
+    numberOfPresences: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        validate: {notEmpty: true}
     },
 
     classId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        validate: {notEmpty: true},
-        references: {model: "classes", key: "id"}
+        references: {model: "classes"}
     }
 },
 
     {
+        createdAt: false,
+        updatedAt: false,
         tableName: "students"
     }
 )
+
 
 export default Student

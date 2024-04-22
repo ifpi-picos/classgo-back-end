@@ -1,7 +1,7 @@
 import database from "../config/database.js"
 import { DataTypes } from "sequelize"
 
-const Frequency = database.define("Frequency", {
+const Progress = database.define("Progress", {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -10,27 +10,23 @@ const Frequency = database.define("Frequency", {
 
     studentId: {
         type: DataTypes.INTEGER,
-        allowNull: null,
+        allowNull: false,
         references: {model: "students"}
     },
 
-    presence: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-    },
-
-    lessonId: {
+    classId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: {model: "lessons"}
+        references: {model: "classes"}
     }
-}, 
+},
 
     {
         createdAt: false,
         updatedAt: false,
-        tableName: "frequencies"
+        tableName: "progresses"
     }
 )
 
-export default Frequency
+
+export default Progress

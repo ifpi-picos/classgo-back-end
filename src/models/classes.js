@@ -11,30 +11,23 @@ const Class = database.define("Class", {
     description: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate: {notEmpty: true}
     },
 
-    totalNumberOfLessons: {
+    studentsCapacity: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-        validate: {notEmpty: true}
+        allowNull: false
     },
 
-    totalNumberOfStudents: {
+    teacherId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        validate: {notEmpty: true}
-    },
-
-    userId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        validate: {notEmpty: true},
-        references: {model: "users", key: "id"}
+        references: {model: "teachers"}
     }
-}, 
+},
 
     {
+        createdAt: false,
+        updatedAt: false,
         tableName: "classes"
     }
 )

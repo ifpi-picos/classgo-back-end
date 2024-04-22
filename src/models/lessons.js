@@ -11,24 +11,23 @@ const Lesson = database.define("Lesson", {
     description: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate: {notEmpty: true}
     },
 
     date: {
         type: DataTypes.DATEONLY,
         allowNull: false,
-        validate: {notEmpty: true}
     },
 
     classId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        validate: {notEmpty: true},
-        references: {model: "classes", key: "id"}
+        references: {model: "classes"}
     }
 },
 
     {
+        createdAt: false,
+        updatedAt: false,
         tableName: "lessons"
     }
 )

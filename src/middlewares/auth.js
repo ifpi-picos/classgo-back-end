@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken"
+import { JWT_SECRET } from "../config/dotenv.js"
 
 const verifyToken = async (req, res, next) => {
     const token = req.headers.authorization
@@ -7,12 +8,12 @@ const verifyToken = async (req, res, next) => {
         return res.status(401).send("Token não fornecido!")
     }
 
-    jwt.verify(token, process.env.JWT_SECRET, (error, decode) => {
-        if (error) {
-            return res.status(401).send(error.message)
+    jwt.verify(token, JWT_SECRET, (err, decode) => {
+        if (err) {
+            return res.status(401).send(err.message)
         }
 
-        req.userId = decode.userId
+        req.teacherId = decode.teacherId
 
         return next()
     })
