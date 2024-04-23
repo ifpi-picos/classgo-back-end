@@ -21,7 +21,7 @@ const Class = database.define("Class", {
     teacherId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: {model: "teachers"}
+        references: {model: "users"}
     }
 },
 

@@ -1,7 +1,7 @@
 import database from "../config/database.js"
 import { DataTypes } from "sequelize"
 
-const Administrator = database.define("Administrator", {
+const User = database.define("User", {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -19,6 +19,11 @@ const Administrator = database.define("Administrator", {
         allowNull: false
     },
 
+    type: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+
     password: {
         type: DataTypes.STRING,
         allowNull: false
@@ -28,8 +33,9 @@ const Administrator = database.define("Administrator", {
     {
         createdAt: false,
         updatedAt: false,
-        tableName: "administrators"
+        tableName: "users"
     }
 )
 
-export default Administrator
+
+export default User
