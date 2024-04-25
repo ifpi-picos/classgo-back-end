@@ -1,5 +1,6 @@
 import { create, destroy, findAll, findByPk, forgotPassword, redefinePassword, signIn, update } from "../controllers/users.js"
 import { Router } from "express"
+import verifyToken from "../middlewares/auth.js"
 
 const userRouter = Router()
 
@@ -81,7 +82,7 @@ userRouter.post("/forgotpassword", async (req, res) => {
     }
 })
 
-userRouter.post("/redefinepassword/:id", async (req, res) => {
+userRouter.post("/redefinepassword/:id", verifyToken, async (req, res) => {
     try {
         const id = req.params.id
         const {newPassword, confirmNewPassword} = req.body
@@ -108,7 +109,7 @@ userRouter.post("/redefinepassword/:id", async (req, res) => {
     }
 })
 
-userRouter.get("/", async (_, res) => {
+userRouter.get("/", verifyToken, async (_, res) => {
     try {
         const users = await findAll()
 
@@ -120,7 +121,7 @@ userRouter.get("/", async (_, res) => {
     }
 })
 
-userRouter.get("/:id", async (req, res) => {
+userRouter.get("/:id", verifyToken, async (req, res) => {
     try {
         const id = req.params.id
 
@@ -134,7 +135,7 @@ userRouter.get("/:id", async (req, res) => {
     }
 })
 
-userRouter.put("/:id", async (req, res) => {
+userRouter.put("/:id", verifyToken, async (req, res) => {
     try {
         const id = req.params.id
         const {name, email} = req.body
@@ -157,7 +158,7 @@ userRouter.put("/:id", async (req, res) => {
     }
 })
 
-userRouter.delete("/:id", async (req, res) => {
+userRouter.delete("/:id", verifyToken, async (req, res) => {
     try {
         const id = req.params.id
 

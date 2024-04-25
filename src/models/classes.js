@@ -13,12 +13,12 @@ const Class = database.define("Class", {
         allowNull: false,
     },
 
-    studentsCapacity: {
+    numberOfStudents: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        defaultValue: 0
     },
 
-    teacherId: {
+    userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {model: "users"}

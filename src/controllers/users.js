@@ -122,7 +122,7 @@ export const findByPk = async (id) => {
 
 export const update = async (id, name, email) => {
     try {
-        const user = await User.findOne({where: {email}})
+        const user = await User.findByPk(id)
 
         if (user && id != user.id) {
             throw new Error("Usuário já cadastrado!")
