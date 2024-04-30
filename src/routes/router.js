@@ -4,7 +4,7 @@ import userRouter from "./users.js"
 
 const router = Router()
 
-export default router
-
 router.use("/users", userRouter)
 router.use("/classes", classRouter)
+
+export default router

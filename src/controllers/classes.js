@@ -12,33 +12,33 @@ export const create = async (description, userId) => {
     }
     
     catch (err) {
-        throw new Error(err.message)    
+        throw new Error(err.message)
     }
 }
 
 export const findAll = async (userId) => {
     try {
-        return await Class.findAll({attributes: ["id", "description", "numberOfStudents"]}, {where: {userId}})
+        return await Class.findAll({attributes: ["id", "description", "numberOfStudents"], order: [["description", "ASC"]], where: {userId}})
     }
     
     catch (err) {
-        throw new Error(err.message)    
+        throw new Error(err.message)
     }
 }
 
 export const findOne = async (description, userId) => {
     try {
-        return await Class.findOne({attributes: ["id", "description", "numberOfStudents"]}, {where: {description, userId}})
+        return await Class.findOne({attributes: ["id", "description", "numberOfStudents"], where: {description, userId}})
     }
-    
+
     catch (err) {
-        throw new Error(err.message)    
+        throw new Error(err.message)
     }
 }
 
-export const update = async (id, description) => {
+export const update = async (id, description, userId) => {
     try {
-        const myClass = await Class.findByPk(id)
+        const myClass = await Class.findOne({where: {description, userId}})
 
         if (myClass && id != myClass.id) {
             throw new Error("Turma já criada!")
@@ -48,7 +48,7 @@ export const update = async (id, description) => {
     }
     
     catch (err) {
-        throw new Error(err.message)    
+        throw new Error(err.message)
     }
 }
 
@@ -58,6 +58,6 @@ export const destroy = async (id) => {
     }
     
     catch (err) {
-        throw new Error(err.message)    
+        throw new Error(err.message)
     }
 }

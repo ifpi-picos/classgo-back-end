@@ -1,7 +1,7 @@
 import database from "../config/database.js"
 import { DataTypes } from "sequelize"
 
-const Student = database.define("Student", {
+const Student = database.define("student", {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -9,28 +9,24 @@ const Student = database.define("Student", {
     },
 
     name: {
-        type: DataTypes.STRING,
-        allowNull: false,
+        type: DataTypes.TEXT,
+        allowNull: false
     },
 
     numberOfPresences: {
         type: DataTypes.INTEGER,
         allowNull: false,
-    },
-
-    classId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {model: "classes"}
+        defaultValue: 0
     }
 },
-
     {
-        createdAt: false,
-        updatedAt: false,
-        tableName: "students"
+        timestamps: false
     }
 )
 
+Student.associate = async (models) => {
+    await Student.belongsTo(models.class, {as: "class", foreignKey: {type: DataTypes.INTEGER, allowNull: false}})
+    await Student.hasMany(models.frequency, {as: "frequency", foreignKey: {type: DataTypes.INTEGER, allowNull: false}})
+}
 
 export default Student

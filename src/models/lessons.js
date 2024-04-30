@@ -1,7 +1,7 @@
 import database from "../config/database.js"
 import { DataTypes } from "sequelize"
 
-const Lesson = database.define("Lesson", {
+const Lesson = database.define("lesson", {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -9,27 +9,23 @@ const Lesson = database.define("Lesson", {
     },
 
     description: {
-        type: DataTypes.STRING,
-        allowNull: false,
+        type: DataTypes.TEXT,
+        allowNull: false
     },
 
     date: {
         type: DataTypes.DATEONLY,
-        allowNull: false,
-    },
-
-    classId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {model: "classes"}
+        allowNull: false
     }
 },
-
     {
-        createdAt: false,
-        updatedAt: false,
-        tableName: "lessons"
+        timestamps: false
     }
 )
+
+Lesson.associate = async (models) => {
+    await Lesson.belongsTo(models.class, {as: "class", foreignKey: {type: DataTypes.INTEGER, allowNull: false}})
+    await Lesson.hasMany(models.frequency, {as: "frequency", foreignKey: {type: DataTypes.INTEGER, allowNull: false}})
+}
 
 export default Lesson

@@ -1,7 +1,7 @@
 import database from "../config/database.js"
 import { DataTypes } from "sequelize"
 
-const User = database.define("User", {
+const User = database.define("user", {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -9,33 +9,34 @@ const User = database.define("User", {
     },
 
     name: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
     },
 
     email: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         unique: true,
         allowNull: false
     },
 
     type: {
-        type: DataTypes.STRING,
-        allowNull: false
+        type: DataTypes.TEXT,
+        allowNull: false,
+        defaultValue: "Professor"
     },
 
     password: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
     }
 },
-
     {
-        createdAt: false,
-        updatedAt: false,
-        tableName: "users"
+        timestamps: false
     }
 )
 
+User.associate = (models) => {
+    User.hasMany(models.class, {as: "class", foreignKey: {type: DataTypes.INTEGER, allowNull: false}})
+}
 
 export default User

@@ -1,36 +1,26 @@
 import database from "../config/database.js"
 import { DataTypes } from "sequelize"
 
-const Frequency = database.define("Frequency", {
+const Frequency = database.define("frequency", {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true
     },
 
-    studentId: {
-        type: DataTypes.INTEGER,
-        allowNull: null,
-        references: {model: "students"}
-    },
-
     presence: {
         type: DataTypes.BOOLEAN,
-        allowNull: false,
-    },
-
-    lessonId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {model: "lessons"}
+        allowNull: false
     }
 }, 
-
     {
-        createdAt: false,
-        updatedAt: false,
-        tableName: "frequencies"
+        timestamps: false
     }
 )
+
+Frequency.associate = async (models) => {
+    await Frequency.belongsTo(models.lesson, {as: "lesson", foreignKey: {type: DataTypes.INTEGER, allowNull: false}})
+    await Frequency.belongsTo(models.student, {as: "student", foreignKey: {type: DataTypes.INTEGER, allowNull: false}})
+}
 
 export default Frequency
