@@ -26,7 +26,6 @@ const Student = database.define("student", {
 
 Student.associate = async (models) => {
     await Student.belongsTo(models.class, {as: "class", foreignKey: {type: DataTypes.INTEGER, allowNull: false}})
-    await Student.hasMany(models.frequency, {as: "frequency", foreignKey: {type: DataTypes.INTEGER, allowNull: false}})
 }
 
 export default Student

@@ -100,19 +100,9 @@ export const redefinePassword = async (id, newPassword) => {
     }
 }
 
-export const findAll = async () => {
-    try {
-        return await User.findAll({attributes: ["id", "name", "email"], order: [["name", "ASC"]]})
-    }
-    
-    catch (err) {
-        throw new Error(err.message)
-    }
-}
-
 export const findByPk = async (id) => {
     try {
-        return await User.findByPk(id, {attributes: ["id", "name", "email"]})
+        return await User.findByPk(id, {attributes: ["name", "email"]})
     }
     
     catch (err) {

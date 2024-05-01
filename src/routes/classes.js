@@ -10,11 +10,11 @@ classRouter.post("/", verifyToken, async (req, res) => {
         const description = req.body.description
         
         if (!description) {
-            return res.status(400).send("Campo descrição da turma obrigatório!")
+            return res.status(400).send("Campo descrição obrigatório!")
         }
         
         else if (description.length < 3 || description.length > 30) {
-            return res.status(400).send("Campo descrição da turma deve conter entre 3 e 30 caracteres")
+            return res.status(400).send("Campo descrição deve conter entre 3 e 30 caracteres")
         }
         
         await create(description, userId)
@@ -63,11 +63,11 @@ classRouter.put("/:id", verifyToken, async (req, res) => {
         const description = req.body.description
         
         if (!description) {
-            return res.status(400).send("Campo descrição da turma obrigatório!")
+            return res.status(400).send("Campo descrição obrigatório!")
         }
         
         else if (description.length < 3 || description.length > 30) {
-            return res.status(400).send("Campo descrição da turma deve conter entre 3 e 30 caracteres")
+            return res.status(400).send("Campo descrição deve conter entre 3 e 30 caracteres")
         }
         
         await update(id, description, userId)
@@ -86,7 +86,7 @@ classRouter.delete("/:id", verifyToken, async (req, res) => {
         
         await destroy(id)
         
-        return res.status(200).send("Tuurma excluida com sucesso!")
+        return res.status(200).send("Turma excluida com sucesso!")
     }
     
     catch (err) {

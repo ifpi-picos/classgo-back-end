@@ -8,6 +8,11 @@ const Frequency = database.define("frequency", {
         primaryKey: true
     },
 
+    studentName: {
+        type: DataTypes.TEXT,
+        allowNull: false
+    },
+
     presence: {
         type: DataTypes.BOOLEAN,
         allowNull: false
@@ -20,7 +25,6 @@ const Frequency = database.define("frequency", {
 
 Frequency.associate = async (models) => {
     await Frequency.belongsTo(models.lesson, {as: "lesson", foreignKey: {type: DataTypes.INTEGER, allowNull: false}})
-    await Frequency.belongsTo(models.student, {as: "student", foreignKey: {type: DataTypes.INTEGER, allowNull: false}})
 }
 
 export default Frequency

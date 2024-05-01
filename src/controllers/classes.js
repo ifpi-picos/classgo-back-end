@@ -1,4 +1,7 @@
 import Class from "../models/classes.js"
+import Frequency from "../models/frequencies.js"
+import Lesson from "../models/lessons.js"
+import Student from "../models/students.js"
 
 export const create = async (description, userId) => {
     try {
@@ -54,6 +57,16 @@ export const update = async (id, description, userId) => {
 
 export const destroy = async (id) => {
     try {
+        const lessons = findAll({attributes: ["id"], where: {classId: id}})
+
+        for (let index = 0; index < lessons.length; index++) {
+            const lessonId = lessons[index].id
+
+            await Frequency.destroy({where: {lessonId}})
+        }
+
+        await Lesson.destroy({where: {classId: id}})
+        await Student.destroy({where: {classId: id}})
         await Class.destroy({where: {id}})
     }
     
