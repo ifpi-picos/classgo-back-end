@@ -57,7 +57,7 @@ export const update = async (id, description, userId) => {
 
 export const destroy = async (id) => {
     try {
-        const lessons = findAll({attributes: ["id"], where: {classId: id}})
+        const lessons = await Lesson.findAll({attributes: ["id"], where: {classId: id}})
 
         for (let index = 0; index < lessons.length; index++) {
             const lessonId = lessons[index].id

@@ -16,15 +16,17 @@ const Frequency = database.define("frequency", {
     presence: {
         type: DataTypes.BOOLEAN,
         allowNull: false
+    },
+
+    lessonId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {model: "lessons"}
     }
 }, 
     {
         timestamps: false
     }
 )
-
-Frequency.associate = async (models) => {
-    await Frequency.belongsTo(models.lesson, {as: "lesson", foreignKey: {type: DataTypes.INTEGER, allowNull: false}})
-}
 
 export default Frequency

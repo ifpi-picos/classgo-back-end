@@ -1,4 +1,3 @@
-import { addFrequency, editFrequency } from "../controllers/frequencies.js"
 import { create, findAll, update } from "../controllers/lessons.js"
 import { Router } from "express"
 import verifyToken from "../middlewares/auth.js"
@@ -7,7 +6,7 @@ const lessonRouter = Router()
 
 lessonRouter.post("/", verifyToken, async (req, res) => {
     try {
-        const {description, date, frequencies, classId} = req.body
+        const {description, date, classId} = req.body
 
         if (!description) {
             return res.status(400).send("Campo descrição obrigatório!")
@@ -21,11 +20,9 @@ lessonRouter.post("/", verifyToken, async (req, res) => {
             return res.status(400).send("Campo data da aula obrigatório!")
         }
 
-        const lessonId = await create(description, date, classId)
+        const {id} = await create(description, date, classId)
 
-        await addFrequency(frequencies, lessonId, classId)
-
-        return res.status(201).send("Lição registrada com sucesso!")
+        return res.status(201).send({id})
     }
     
     catch (err) {
@@ -66,9 +63,7 @@ lessonRouter.put("/:id", verifyToken, async (req, res) => {
 
         await update(id, description, date, classId)
 
-        await editFrequency(frequencies, classId)
-
-        return res.status(200).send("Lição atualizada com sucesso!")
+        return res.status(200).send({id})
     }
     
     catch (err) {

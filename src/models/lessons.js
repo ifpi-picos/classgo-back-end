@@ -16,16 +16,17 @@ const Lesson = database.define("lesson", {
     date: {
         type: DataTypes.DATEONLY,
         allowNull: false
+    },
+
+    classId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {model: "classes"}
     }
 },
     {
         timestamps: false
     }
 )
-
-Lesson.associate = async (models) => {
-    await Lesson.belongsTo(models.class, {as: "class", foreignKey: {type: DataTypes.INTEGER, allowNull: false}})
-    await Lesson.hasMany(models.frequency, {as: "frequency", foreignKey: {type: DataTypes.INTEGER, allowNull: false}})
-}
 
 export default Lesson

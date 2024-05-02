@@ -1,11 +1,12 @@
 import Frequency from "../models/frequencies.js"
 import Student from "../models/students.js"
 
-export const addFrequency = async (frequencies, lessonId, classId) => {
+export const create = async (frequencies, classId) => {
     try {
         for (let index = 0; index < frequencies.length; index++) {
             const studentName = frequencies[index].studentName
             const presence = frequencies[index].presence
+            const lessonId = frequencies[index].lessonId
             
             await Frequency.create({studentName, presence, lessonId})
 
@@ -31,10 +32,11 @@ export const findAll = async (lessonId) => {
     }
 }
 
-export const editFrequency = async (frequencies, classId) => {
+export const update = async (frequencies, classId) => {
     try {
         for (let index = 0; index < frequencies.length; index++) {
             const id = frequencies[index].id
+            const studentName = frequencies[index].studentName
             const presence = frequencies[index].presence
             
             const frequency = await Frequency.findByPk(id)

@@ -1,4 +1,3 @@
-import { APP_PASSWORD, JWT_SECRET } from "../config/dotenv.js"
 import { compare, hash } from "bcrypt"
 import { createTransport } from "nodemailer"
 import jwt from "jsonwebtoken"
@@ -36,7 +35,7 @@ export const signIn = async (email, password) => {
             throw new Error("Senha inválida!")
         }
         
-        return jwt.sign({userId: user.id}, JWT_SECRET, {expiresIn: "2d"})
+        return jwt.sign({userId: user.id}, process.env.JWT_SECRET, {expiresIn: "2d"})
     }
     
     catch (err) {
@@ -51,18 +50,14 @@ export const forgotPassword = async (email) => {
         if (!user) {
             throw new Error("Usuário não cadastrado!")
         }
-
-        const token = jwt.sign({userId: user.id}, JWT_SECRET, {expiresIn: 3600})
         
         const transport = createTransport({
             host: "smtp.gmail.com",
             port: 465,
             secure: true,
-            auth: {user: "idcursoproject@gmail.com", pass: `${APP_PASSWORD}`}
+            auth: {user: "idcursoproject@gmail.com", pass: `${process.env.APP_PASSWORD}`}
         })
         
-        const message = "Pedido de solicitação enviado para seu email!"
-
         const mailOptions = {
             from: "idCurso <idcursoproject@gmail.com>",
             to: `${user.email}`,
@@ -80,7 +75,7 @@ export const forgotPassword = async (email) => {
     
         await transport.sendMail(mailOptions)
     
-        return {token, message}
+        return jwt.sign({userId: user.id}, process.env.JWT_SECRET, {expiresIn: 3600})
     }
     
     catch (err) {
@@ -112,13 +107,13 @@ export const findByPk = async (id) => {
 
 export const update = async (id, name, email) => {
     try {
-        const user = await User.findByPk(id)
+        const user = await User.findOne({where: {email}})
 
         if (user && id != user.id) {
             throw new Error("Usuário já cadastrado!")
         }
 
-        await User.update({name, email}, {where: {id}})
+        return await User.update({name, email}, {where: {id}})
     }
     
     catch (err) {

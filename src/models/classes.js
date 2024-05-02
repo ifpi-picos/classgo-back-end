@@ -17,17 +17,17 @@ const Class = database.define("class", {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 0
+    },
+
+    userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {model: "users"}
     }
 },
     {
         timestamps: false
     }
 )
-
-Class.associate = async (models) => {
-    await Class.belongsTo(models.user, {as: "user", foreignKey: {type: DataTypes.INTEGER, allowNull: false}})
-    await Class.hasMany(models.lesson, {as: "lesson", foreignKey: {type: DataTypes.INTEGER, allowNull: false}})
-    await Class.hasMany(models.student, {as: "student", foreignKey: {type: DataTypes.INTEGER, allowNull: false}})
-}
 
 export default Class

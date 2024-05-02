@@ -26,15 +26,15 @@ export const findAll = async (classId) => {
     }
 }
 
-export const update = async (id, name) => {
+export const update = async (id, name, classId) => {
     try {
-        const student = await Student.findByPk(id)
+        const student = await Student.findOne({where: {name, classId}})
 
         if (student && id != student.id) {
             throw new Error("Aluno já adicionado!")
         }
 
-        await Student.update({name})
+        await Student.update({name}, {where: {id}})
     }
     
     catch (err) {

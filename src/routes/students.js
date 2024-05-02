@@ -43,7 +43,7 @@ studentRouter.get("/:classId", verifyToken, async (req, res) => {
 studentRouter.put("/:id", verifyToken, async (req, res) => {
     try {
         const id = req.params.id
-        const name = req.body.name
+        const {name, classId} = req.body
 
         if (!name) {
             return res.status(400).send("Campo nome obrigatório!")
@@ -53,7 +53,7 @@ studentRouter.put("/:id", verifyToken, async (req, res) => {
             return res.status(400).send("Campo nome deve conter entre 3 e 60 caracteres!")
         }
 
-        await update(id, name)
+        await update(id, name, classId)
 
         return res.status(200).send("Aluno atualizado com sucesso!")
         

@@ -35,8 +35,4 @@ const User = database.define("user", {
     }
 )
 
-User.associate = (models) => {
-    User.hasMany(models.class, {as: "class", foreignKey: {type: DataTypes.INTEGER, allowNull: false}})
-}
-
 export default User

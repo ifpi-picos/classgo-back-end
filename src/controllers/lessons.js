@@ -8,9 +8,7 @@ export const create = async (description, date, classId) => {
             throw new Error("Lição já registrada!")
         }
 
-        const newLesson = await Lesson.create({description, date, classId})
-
-        return newLesson.id
+        return await Lesson.create({description, date, classId})
     }
     
     catch (err) {

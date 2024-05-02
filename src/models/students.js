@@ -17,15 +17,17 @@ const Student = database.define("student", {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 0
+    },
+
+    classId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {model: "classes"}
     }
 },
     {
         timestamps: false
     }
 )
-
-Student.associate = async (models) => {
-    await Student.belongsTo(models.class, {as: "class", foreignKey: {type: DataTypes.INTEGER, allowNull: false}})
-}
 
 export default Student
