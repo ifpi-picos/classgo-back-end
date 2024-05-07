@@ -70,16 +70,16 @@ userRouter.post("/signin", async (req, res) => {
             return res.status(400).send("Campo email obrigatório!")
         }
 
-        else if (email.length < 12 || email.length > 60) {
-            return res.status(400).send("Campo email deve conter entre 12 e 60 caracteres!")
+        else if (email.length > 60) {
+            return res.status(400).send("Campo email deve conter menos de 60 caracteres!")
         }
         
         else if (!password) {
             return res.status(400).send("Campo senha obrigatório!")
         }
 
-        else if (password.length < 6 || password.length > 15) {
-            return res.status(400).send("Campo senha deve conter entre 6 e 15 caracteres!")
+        else if (password.length > 15) {
+            return res.status(400).send("Campo senha deve conter menos de 15 caracteres!")
         }
 
         const token = await signIn(email, password)
@@ -101,7 +101,7 @@ userRouter.post("/forgotpassword", async (req, res) => {
         }
 
         else if (email.length < 12 || email.length > 60) {
-            return res.status(400).send("Campo email deve conter entre 12 e 60 caracteres!")
+            return res.status(400).send("Campo email deve conter menos de 60 caracteres!")
         }
 
         const mail = await forgotPassword(email)
