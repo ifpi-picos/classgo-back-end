@@ -1,4 +1,4 @@
 import app from "./src/app.js"
 import database from "./src/config/database.js"
 
-database.sync().then(() => app.listen(3030, () => console.log("Servidor em execução: https://idcurso-back-end.vercel.app")))
+database.sync({alter: true}).then(() => app.listen(3030, () => console.log("Servidor em execução: https://idcurso-back-end.vercel.app")))

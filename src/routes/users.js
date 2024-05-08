@@ -6,7 +6,7 @@ const userRouter = Router()
 
 userRouter.post("/", async (req, res) => {
     try {
-        const {name, email, type, password, confirmPassword} = req.body
+        const {name, email, password, confirmPassword} = req.body
 
         if (!name) {
             return res.status(400).send("Campo nome obrigatório!")
@@ -22,14 +22,6 @@ userRouter.post("/", async (req, res) => {
 
         else if (email.length < 12 || email.length > 60) {
             return res.status(400).send("Campo email deve conter entre 12 e 60 caracteres!")
-        }
-        
-        else if (!type) {
-            return res.status(400).send("Campo tipo de usuário obrigatório!")
-        }
-
-        else if (type != "Professor" && type != "Administrador") {
-            return res.status(400).send("Campo tipo de usuário deve corresponder a Professor ou Administrador!")
         }
         
         else if (!password) {
@@ -52,7 +44,7 @@ userRouter.post("/", async (req, res) => {
             return res.status(400).send("Campos senha e confirmar senha distintos!")
         }
 
-        await create(name, email, type, password)
+        await create(name, email, password)
 
         return res.status(201).send("Usuário cadastrado com sucesso!")
     }
@@ -71,7 +63,7 @@ userRouter.post("/signin", async (req, res) => {
         }
 
         else if (email.length > 60) {
-            return res.status(400).send("Campo email deve conter menos de 60 caracteres!")
+            return res.status(400).send("Campo email deve conter no máximo 60 caracteres!")
         }
         
         else if (!password) {
@@ -79,7 +71,7 @@ userRouter.post("/signin", async (req, res) => {
         }
 
         else if (password.length > 18) {
-            return res.status(400).send("Campo senha deve conter menos de 18 caracteres!")
+            return res.status(400).send("Campo senha deve conter no máximo 18 caracteres!")
         }
 
         const token = await signIn(email, password)
@@ -100,8 +92,8 @@ userRouter.post("/forgotpassword", async (req, res) => {
             return res.status(400).send("Campo email obrigatório!")
         }
 
-        else if (email.length < 12 || email.length > 60) {
-            return res.status(400).send("Campo email deve conter menos de 60 caracteres!")
+        else if (email.length > 60) {
+            return res.status(400).send("Campo email deve conter no máximo 60 caracteres!")
         }
 
         const mail = await forgotPassword(email)
@@ -131,8 +123,8 @@ userRouter.post("/redefinepassword/:id", verifyToken, async (req, res) => {
             return res.status(400).send("Campo confirmar nova senha obrigatório!")
         }
 
-        else if (confirmNewPassword.length < 6 || confirmNewPassword.length > 15) {
-            return res.status(400).send("Campo confirmar nova senha deve conter entre 6 e 15 caracteres!")
+        else if (confirmNewPassword.length < 6 || confirmNewPassword.length > 18) {
+            return res.status(400).send("Campo confirmar nova senha deve conter entre 6 e 18 caracteres!")
         }
         
         else if (newPassword != confirmNewPassword) {

@@ -3,7 +3,7 @@ import { createTransport } from "nodemailer"
 import jwt from "jsonwebtoken"
 import User from "../models/users.js"
 
-export const create = async (name, email, type, password) => {
+export const create = async (name, email, password) => {
     try {
         const user = await User.findOne({where: {email}})
         
@@ -13,7 +13,7 @@ export const create = async (name, email, type, password) => {
         
         password = await hash(password, 8)
         
-        await User.create({name, email, type, password})
+        await User.create({name, email, password})
     }
     
     catch (err) {
