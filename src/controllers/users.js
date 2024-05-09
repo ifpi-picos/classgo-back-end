@@ -83,11 +83,11 @@ export const forgotPassword = async (email) => {
     }
 }
 
-export const redefinePassword = async (id, newPassword) => {
+export const redefinePassword = async (id, password) => {
     try {
-        newPassword = await hash(newPassword, 8)
+        password = await hash(password, 8)
 
-        await User.update({password: newPassword}, {where: {id}})
+        await User.update({password}, {where: {id}})
     }
     
     catch (err) {

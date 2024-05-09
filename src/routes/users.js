@@ -106,9 +106,9 @@ userRouter.post("/forgotpassword", async (req, res) => {
     }
 })
 
-userRouter.post("/redefinepassword/:id", verifyToken, async (req, res) => {
+userRouter.put("/redefinepassword", verifyToken, async (req, res) => {
     try {
-        const id = req.params.id
+        const id = req.userId
         const {password, confirmPassword} = req.body
 
         if (!password) {
