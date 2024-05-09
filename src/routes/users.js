@@ -96,9 +96,9 @@ userRouter.post("/forgotpassword", async (req, res) => {
             return res.status(400).send("Campo email deve conter no máximo 60 caracteres!")
         }
 
-        const mail = await forgotPassword(email)
+        const token = await forgotPassword(email)
 
-        return res.status(200).send(mail)
+        return res.status(200).send(token)
     }
     
     catch (err) {
