@@ -109,29 +109,29 @@ userRouter.post("/forgotpassword", async (req, res) => {
 userRouter.post("/redefinepassword/:id", verifyToken, async (req, res) => {
     try {
         const id = req.params.id
-        const {newPassword, confirmNewPassword} = req.body
+        const {password, confirmPassword} = req.body
 
-        if (!newPassword) {
+        if (!password) {
             return res.status(400).send("Campo nova senha obrigatório!")
         }
 
-        else if (newPassword.length < 6 || newPassword.length > 18) {
+        else if (password.length < 6 || password.length > 18) {
             return res.status(400).send("Campo nova senha deve conter entre 6 e 18 caracteres!")
         }
         
-        else if (!confirmNewPassword) {
+        else if (!confirmPassword) {
             return res.status(400).send("Campo confirmar nova senha obrigatório!")
         }
 
-        else if (confirmNewPassword.length < 6 || confirmNewPassword.length > 18) {
+        else if (confirmPassword.length < 6 || confirmPassword.length > 18) {
             return res.status(400).send("Campo confirmar nova senha deve conter entre 6 e 18 caracteres!")
         }
         
-        else if (newPassword != confirmNewPassword) {
+        else if (password != confirmPassword) {
             return res.status(400).send("Campos nova senha e confirmar nova senha distintos!")
         }
 
-        await redefinePassword(id, newPassword)
+        await redefinePassword(id, password)
 
         return res.status(200).send("Senha redefinida com sucesso!")
     }
