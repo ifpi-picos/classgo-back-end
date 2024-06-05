@@ -16,7 +16,7 @@ const Class = database.define("class", {
     numberOfStudents: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        defaultValue: 0
+        defaultValue: 50
     },
 
     userId: {
