@@ -1,3 +1,4 @@
+import Class from "../models/classes.js"
 import Student from "../models/students.js"
 
 export const create = async (name, classId) => {
@@ -9,6 +10,10 @@ export const create = async (name, classId) => {
         }
 
         await Student.create({name, classId})
+
+        const myClass = await Class.findOne({where: {id: classId}})
+
+        await myClass.increment("numberOfStudents", {by: 1})
     }
     
     catch (err) {
@@ -42,9 +47,13 @@ export const update = async (id, name, classId) => {
     }
 }
 
-export const destroy = async (id) => {
+export const destroy = async (id, classId) => {
     try {
         await Student.destroy({where: {id}})
+
+        const myClass = await Class.findOne({where: {id: classId}})
+
+        await myClass.decrement("numberOfStudents", {by: 1})
     }
     
     catch (err) {

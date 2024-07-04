@@ -18,6 +18,11 @@ const Lesson = database.define("lesson", {
         allowNull: false
     },
 
+    frequency: {
+        type: DataTypes.ARRAY(DataTypes.JSON),
+        allowNull: false
+    },
+
     classId: {
         type: DataTypes.INTEGER,
         allowNull: false,

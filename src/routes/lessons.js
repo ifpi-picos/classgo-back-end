@@ -6,7 +6,7 @@ const lessonRouter = Router()
 
 lessonRouter.post("/", verifyToken, async (req, res) => {
     try {
-        const {description, date, classId} = req.body
+        const {description, date, frequency, classId} = req.body
 
         if (!description) {
             return res.status(400).send("Campo descrição obrigatório!")
@@ -17,12 +17,16 @@ lessonRouter.post("/", verifyToken, async (req, res) => {
         }
 
         else if (!date) {
-            return res.status(400).send("Campo data da aula obrigatório!")
+            return res.status(400).send("Campo data obrigatório!")
         }
 
-        const {id} = await create(description, date, classId)
+        else if (frequency.length === 0) {
+            return res.status(400).send("Campo frequência obrigatório!")
+        }
 
-        return res.status(201).send({id})
+        await create(description, date, frequency, classId)
+
+        return res.status(201).send("Aula registrada com sucesso!")
     }
     
     catch (err) {
@@ -47,7 +51,7 @@ lessonRouter.get("/:classId", verifyToken, async (req, res) => {
 lessonRouter.put("/:id", verifyToken, async (req, res) => {
     try {
         const id = req.params.id
-        const {description, date, frequencies, classId} = req.body
+        const {description, date, frequency, classId} = req.body
 
         if (!description) {
             return res.status(400).send("Campo descrição obrigatório!")
@@ -58,12 +62,16 @@ lessonRouter.put("/:id", verifyToken, async (req, res) => {
         }
 
         else if (!date) {
-            return res.status(400).send("Campo data da aula obrigatório!")
+            return res.status(400).send("Campo data obrigatório!")
         }
 
-        await update(id, description, date, classId)
+        else if (frequency.length === 0) {
+            return res.status(400).send("Campo frequência obrigatório!")
+        }
 
-        return res.status(200).send({id})
+        await update(id, description, date, frequency, classId)
+
+        return res.status(200).send("Aula atualizada com sucesso!")
     }
     
     catch (err) {
