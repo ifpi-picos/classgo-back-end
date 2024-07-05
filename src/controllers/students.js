@@ -49,7 +49,7 @@ export const update = async (id, name, classId) => {
 
 export const destroy = async (id) => {
     try {
-        const classId = await Student.findByPk(id, {attributes: ["claasId"]})
+        const classId = await Student.findByPk(id, {attributes: ["classId"]})
 
         await Student.destroy({where: {id}})
 
