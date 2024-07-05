@@ -49,11 +49,11 @@ export const update = async (id, name, classId) => {
 
 export const destroy = async (id) => {
     try {
-        const classId = await Student.findByPk(id, {attributes: ["classId"]})
+        const student = await Student.findByPk(id)
 
         await Student.destroy({where: {id}})
 
-        const myClass = await Class.findOne({where: {id: classId}})
+        const myClass = await Class.findOne({where: {id: student.classId}})
 
         await myClass.decrement("numberOfStudents", {by: 1})
     }
