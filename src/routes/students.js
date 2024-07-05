@@ -67,9 +67,8 @@ studentRouter.put("/:id", verifyToken, async (req, res) => {
 studentRouter.delete("/:id", verifyToken, async (req, res) => {
     try {
         const id = req.params.id
-        const {classId} = req.body
 
-        await destroy(id, classId)
+        await destroy(id)
 
         return res.status(200).send("Aluno excluido com sucesso!")
     }

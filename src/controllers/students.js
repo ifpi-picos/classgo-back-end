@@ -47,8 +47,10 @@ export const update = async (id, name, classId) => {
     }
 }
 
-export const destroy = async (id, classId) => {
+export const destroy = async (id) => {
     try {
+        const classId = await Student.findByPk(id, {attributes: ["claasId"]})
+
         await Student.destroy({where: {id}})
 
         const myClass = await Class.findOne({where: {id: classId}})
