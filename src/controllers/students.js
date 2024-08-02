@@ -51,7 +51,7 @@ export const update = async (id, name, classId) => {
         }
 
         for (let index = 0; index < frequency.length; index++) {            
-            if (frequency[index].studentName === student.name) {
+            if (frequency[index].studentName == student.name) {
                 frequency[index].studentName = name
             }
         }
@@ -73,7 +73,7 @@ export const destroy = async (id) => {
         for (let index = 0; index < lessons.length; index++) {
             const studentName = lessons[index].frequency.studentName
             
-            if (studentName === student.name) {
+            if (studentName == student.name) {
                 throw new Error("Aluno adicionado em uma frequência, não pode ser exuido!!")
             }
         }
