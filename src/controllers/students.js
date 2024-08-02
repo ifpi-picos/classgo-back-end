@@ -44,7 +44,7 @@ export const update = async (id, name, classId) => {
 
         await Student.update({name}, {where: {id}})
 
-        const lessons = Lesson.findAll({where: classId})
+        const lessons = await Lesson.findAll({where: classId})
 
         for (let index = 0; index < lessons.length; index++) {
             frequency.push(lessons[index].frequency)            
@@ -68,7 +68,7 @@ export const destroy = async (id) => {
     try {
         const student = await Student.findByPk(id)
 
-        const lessons = Lesson.findAll({where: student.classId})
+        const lessons = await Lesson.findAll({where: student.classId})
 
         for (let index = 0; index < lessons.length; index++) {
             const studentName = lessons[index].frequency.studentName
