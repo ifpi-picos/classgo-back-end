@@ -1,4 +1,5 @@
 import Class from "../models/classes.js"
+import Lesson from "../models/lessons.js"
 import Student from "../models/students.js"
 
 export const create = async (name, classId) => {
@@ -33,6 +34,8 @@ export const findAll = async (classId) => {
 
 export const update = async (id, name, classId) => {
     try {
+        const frequency = []
+
         const student = await Student.findOne({where: {name, classId}})
 
         if (student && id != student.id) {
@@ -40,6 +43,20 @@ export const update = async (id, name, classId) => {
         }
 
         await Student.update({name}, {where: {id}})
+
+        const lessons = Lesson.findAll({where: classId})
+
+        for (let index = 0; index < lessons.length; index++) {
+            frequency.push(lessons[index].frequency)            
+        }
+
+        for (let index = 0; index < frequency.length; index++) {            
+            if (frequency[index].studentName === student.name) {
+                frequency[index].studentName = name
+            }
+        }
+
+        await Lesson.update({frequency}, {where: classId})
     }
     
     catch (err) {
@@ -50,6 +67,16 @@ export const update = async (id, name, classId) => {
 export const destroy = async (id) => {
     try {
         const student = await Student.findByPk(id)
+
+        const lessons = Lesson.findAll({where: student.classId})
+
+        for (let index = 0; index < lessons.length; index++) {
+            const studentName = lessons[index].frequency.studentName
+            
+            if (studentName === student.name) {
+                throw new Error("Aluno adicionado em uma frequência, não pode ser exuido!!")
+            }
+        }
 
         await Student.destroy({where: {id}})
 
