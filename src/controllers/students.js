@@ -56,7 +56,7 @@ export const update = async (id, name, classId) => {
             }
         }
 
-        await Lesson.update({frequency}, {where: classId})
+        await Lesson.update({frequency}, {where: {classId}})
     }
     
     catch (err) {
@@ -66,14 +66,18 @@ export const update = async (id, name, classId) => {
 
 export const destroy = async (id) => {
     try {
+        const frequency = []
+
         const student = await Student.findByPk(id)
 
         const lessons = await Lesson.findAll({where: {classId: student.classId}})
-        console.log(lessons)
 
         for (let index = 0; index < lessons.length; index++) {
-            const studentName = lessons[index].frequency.studentName
-            console.log(studentName, student.name)
+            frequency.push(lessons[index].frequency)
+        }
+
+        for (let index = 0; index < frequency.length; index++) {
+            const studentName = frequency[index].studentName
             
             if (studentName == student.name) {
                 throw new Error("Aluno adicionado em uma frequência, não pode ser exuido!!")
