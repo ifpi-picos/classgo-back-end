@@ -72,6 +72,7 @@ export const destroy = async (id) => {
 
         for (let index = 0; index < lessons.length; index++) {
             const studentName = lessons[index].frequency.studentName
+            console.log(studentName, student.name)
             
             if (studentName == student.name) {
                 throw new Error("Aluno adicionado em uma frequência, não pode ser exuido!!")
