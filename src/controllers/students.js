@@ -35,14 +35,33 @@ export const findAll = async (classId) => {
 export const update = async (id, name, classId) => {
     try {
         const student = await Student.findOne({where: {name, classId}})
-
+        
         if (student && id != student.id) {
             throw new Error("Aluno já adicionado!")
+        }
+        
+        const studentInStudents = await Student.findByPk(id)
+
+        const lessons = await Lesson.findAll({where: {classId}})
+
+        for (let index = 0; index < lessons.length; index++) {
+            const frequencies = lessons[index].frequency
+            const newFrequencies = []
+
+            for (let index = 0; index < frequencies.length; index++) {
+                newFrequencies.push(frequencies[index])
+
+                if (studentInStudents.name === newFrequencies[index].studentName) {
+                    newFrequencies.splice(index, 1, {studentName: name, presence: newFrequencies[index].presence})
+                }
+            }
+                
+            await Lesson.update({frequency: newFrequencies}, {where: {classId}})
         }
 
         await Student.update({name}, {where: {id}})
     }
-    
+
     catch (err) {
         throw new Error(err.message)
     }
