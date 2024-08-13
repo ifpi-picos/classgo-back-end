@@ -46,17 +46,19 @@ export const update = async (id, description, date, frequency, classId) => {
             throw new Error("Aula já registrada!")
         }
 
+        const lessonByPk = await Lesson.findByPk(id)
+
         for (let index = 0; index < frequency.length; index++) {
             const studentName = frequency[index].studentName
             const presence = frequency[index].presence
                         
-            if (presence === true && presence !== lesson.frequency[index].presence) {
+            if (presence === true && presence !== lessonByPk.frequency[index].presence) {
                 const student = await Student.findOne({where: {name: studentName, classId}})
                 
                 await student.increment("numberOfPresences", {by: 1})
             }
 
-            else if (presence === false && presence !== lesson.frequency[index].presence) {
+            else if (presence === false && presence !== lessonByPk.frequency[index].presence) {
                 const student = await Student.findOne({where: {name: studentName, classId}})
                 
                 await student.decrement("numberOfPresences", {by: 1})
