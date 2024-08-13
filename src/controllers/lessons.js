@@ -30,7 +30,7 @@ export const create = async (description, date, frequency, classId) => {
 
 export const findAll = async (classId) => {
     try {
-        return await Lesson.findAll({attributes: ["id", "description", "date", "frequency"], order: [["id", "ASC"]], where: {classId}})
+        return await Lesson.findAll({attributes: ["id", "description", "date", "frequency"], order: [["date", "DESC"]], where: {classId}})
     }
     
     catch (err) {
