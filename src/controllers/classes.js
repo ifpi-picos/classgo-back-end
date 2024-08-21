@@ -2,7 +2,7 @@ import Class from "../models/classes.js"
 import Lesson from "../models/lessons.js"
 import Student from "../models/students.js"
 
-export const create = async (description, userId) => {
+export const create = async (description, numberOfLessons, userId) => {
     try {
         const myClass = await Class.findOne({where: {description, userId}})
 
@@ -10,7 +10,7 @@ export const create = async (description, userId) => {
             throw new Error("Turma já criada!")
         }
 
-        await Class.create({description, userId})
+        await Class.create({description, numberOfLessons, userId})
     }
     
     catch (err) {
@@ -20,7 +20,7 @@ export const create = async (description, userId) => {
 
 export const findAll = async (userId) => {
     try {
-        return await Class.findAll({attributes: ["id", "description", "numberOfStudents"], order: [["description", "ASC"]], where: {userId}})
+        return await Class.findAll({attributes: ["id", "description", "numberOfStudents", "numberOfLessons"], order: [["description", "ASC"]], where: {userId}})
     }
     
     catch (err) {
@@ -30,7 +30,7 @@ export const findAll = async (userId) => {
 
 export const findOne = async (description, userId) => {
     try {
-        return await Class.findOne({attributes: ["id", "description", "numberOfStudents"], where: {description, userId}})
+        return await Class.findOne({attributes: ["id", "description", "numberOfStudents", "numberOfLessons"], where: {description, userId}})
     }
 
     catch (err) {
@@ -38,15 +38,15 @@ export const findOne = async (description, userId) => {
     }
 }
 
-export const update = async (id, description, userId) => {
+export const update = async (id, description, numberOfLessons, userId) => {
     try {
-        const myClass = await Class.findOne({where: {description, userId}})
+        const myClass = await Class.findOne({where: {description, numberOfLessons, userId}})
 
         if (myClass && id != myClass.id) {
             throw new Error("Turma já criada!")
         }
 
-        await Class.update({description}, {where: {id}})
+        await Class.update({description, numberOfLessons}, {where: {id}})
     }
     
     catch (err) {

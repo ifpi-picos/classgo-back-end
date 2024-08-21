@@ -8,6 +8,7 @@ classRouter.post("/", verifyToken, async (req, res) => {
     try {
         const userId = req.userId
         const description = req.body.description
+        const numberOfLessons = req.body.numberOfLessons
         
         if (!description) {
             return res.status(400).send("Campo descrição obrigatório!")
@@ -16,8 +17,12 @@ classRouter.post("/", verifyToken, async (req, res) => {
         else if (description.length < 3 || description.length > 30) {
             return res.status(400).send("Campo descrição deve conter entre 3 e 30 caracteres")
         }
+
+        else if (!numberOfLessons) {
+            return res.status(400).send("Campo número de aulas obrigatório!")
+        }
         
-        await create(description, userId)
+        await create(description, numberOfLessons, userId)
         
         return res.status(201).send("Turma criada com sucesso!")
     }

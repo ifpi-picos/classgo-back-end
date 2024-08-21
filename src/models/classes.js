@@ -19,6 +19,11 @@ const Class = database.define("class", {
         defaultValue: 0
     },
 
+    numberOfLessons: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+
     userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
