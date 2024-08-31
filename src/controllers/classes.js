@@ -40,7 +40,7 @@ export const findOne = async (description, userId) => {
 
 export const update = async (id, description, numberOfLessons, userId) => {
     try {
-        const myClass = await Class.findOne({where: {description, numberOfLessons, userId}})
+        const myClass = await Class.findOne({where: {description, userId}})
 
         if (myClass && id != myClass.id) {
             throw new Error("Turma já criada!")

@@ -66,6 +66,7 @@ classRouter.put("/:id", verifyToken, async (req, res) => {
         const id = req.params.id
         const userId = req.userId
         const description = req.body.description
+        const numberOfLessons = req.body.numberOfLessons
         
         if (!description) {
             return res.status(400).send("Campo descrição obrigatório!")
@@ -74,8 +75,12 @@ classRouter.put("/:id", verifyToken, async (req, res) => {
         else if (description.length < 3 || description.length > 30) {
             return res.status(400).send("Campo descrição deve conter entre 3 e 30 caracteres")
         }
+
+        else if (!numberOfLessons) {
+            return res.status(400).send("Campo número de aulas obrigatório!")
+        }
         
-        await update(id, description, userId)
+        await update(id, description, numberOfLessons, userId)
         
         return res.status(200).send("Turma atualizada com sucesso!")
     }
