@@ -46,8 +46,6 @@ export const signIn = async (email, password) => {
 export const forgotPassword = async (email) => {
     try {
         const user = await User.findOne({where: {email}})
-
-        console.log(user)
         
         if (!user) {
             throw new Error("Usuário não cadastrado!")
@@ -70,7 +68,7 @@ export const forgotPassword = async (email) => {
                     <p/>
 
                     <p>
-                        Acesse o link para alterar sua senha: <a href="https://clasgo.vercel.app/redefinepassword">Alterar Senha<a/>
+                        Acesse o link para alterar sua senha: <a href="https://classgo.vercel.app/redefinepassword">Alterar Senha<a/>
                     <p/>
                 `
         }
