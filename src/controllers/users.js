@@ -55,11 +55,11 @@ export const forgotPassword = async (email) => {
             host: "smtp.gmail.com",
             port: 465,
             secure: true,
-            auth: {user: "classgoapp@gmail.com", pass: `${process.env.APP_PASSWORD}`}
+            auth: {user: "idcursoproject@gmail.com", pass: `${process.env.APP_PASSWORD}`}
         })
         
         const mailOptions = {
-            from: "Class Go <classgoapp@gmail.com>",
+            from: "idCurso <idcursoproject@gmail.com>",
             to: `${user.email}`,
             subject: "Solicitação de Alteração de Senha",
             html: `
@@ -68,7 +68,7 @@ export const forgotPassword = async (email) => {
                     <p/>
 
                     <p>
-                        Acesse o link para alterar sua senha: <a href="https://classgo.vercel.app/redefinepassword">Alterar Senha<a/>
+                        Acesse o link para alterar sua senha: <a href="https://idcurso.vercel.app/redefinepassword">Alterar Senha<a/>
                     <p/>
                 `
         }
