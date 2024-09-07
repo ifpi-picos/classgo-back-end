@@ -12,8 +12,8 @@ export const create = async (name, classId) => {
 
         const myClass = await Class.findOne({where: {id: classId}})
 
-        if (myClass.numberOfStudents > 2) {
-            throw new Error("Capacidade alunos alcançada!")
+        if (myClass.numberOfStudents >= 50) {
+            throw new Error("Capacidade de alunos alcançada!")
         }
 
         await Student.create({name, classId})
